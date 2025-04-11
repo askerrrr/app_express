@@ -1,0 +1,10 @@
+src/server/env_var.js
+/node_modules
+/logs
+up.sh
+update.docker.image.sh
+mongosh.sh
+app_errlog.sh
+env_var.js
+httpd.conf
+compose.yaml
