@@ -22,7 +22,7 @@ var saveAndRenderCurrentOrderStatus = async (userId, orderId) => {
       ? renderUnmarkedCheckBoxForFirstStatus(arrayOfCheckBoxesID)
       : renderNextUnmarkedPendingStatus(arrayOfCheckBoxesID, +id);
   } catch (err) {
-    console.log(err);
+    throw err;
   }
 };
 

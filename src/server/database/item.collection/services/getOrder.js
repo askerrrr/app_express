@@ -1,4 +1,4 @@
-async function getOrders(userId, orderId) {
+async function getOrder(userId, orderId) {
   var { orders } = await this.findOne({ userId });
 
   var order = orders.find((order) => order.id == orderId);
@@ -6,4 +6,4 @@ async function getOrders(userId, orderId) {
   return order;
 }
 
-export default getOrders;
+export default getOrder;

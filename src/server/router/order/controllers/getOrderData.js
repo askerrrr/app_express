@@ -9,7 +9,7 @@ var getOrderData = async (req, res) => {
     var user = await getUser(userId);
 
     var order = user.orders.find((order) => order.id === orderId);
-    console.log(order);
+
     return order ? res.json(order) : res.sendStatus(404);
   } catch (err) {
     logger.error({ place: "getting order info", userId, err });

@@ -1,6 +1,6 @@
 import addItems from "./services/addItems.js";
 import getItemId from "./services/getItemId.js";
-import getOrders from "./services/getOrders.js";
+import getOrder from "./services/getOrder.js";
 import updateItemId from "./services/updateItemId.js";
 import getItemsData from "./services/getItemsData.js";
 import createOrderEntity from "./services/createOrderEntity.js";
@@ -15,7 +15,7 @@ function itemCollectionServices() {
   return {
     addItems: addItems.bind(collection),
     getItemId: getItemId.bind(collection),
-    getOrders: getOrders.bind(collection),
+    getOrder: getOrder.bind(collection),
     updateItemId: updateItemId.bind(collection),
     getItemsData: getItemsData.bind(collection),
     updateItemStatus: updateItemStatus.bind(collection),

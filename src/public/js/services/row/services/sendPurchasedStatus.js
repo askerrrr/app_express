@@ -18,8 +18,6 @@ var sendPurchasedStatus = async (userId, orderId, item) => {
     var isConfirmed = confirm("Все товары выкуплены.\nИзменить статус заказа?");
 
     if (isConfirmed) {
-      console.log("newItem is confirm: ", item);
-
       var response = await fetch("/purchasedstatus", {
         method: "PATCH",
         body: JSON.stringify({ userId, orderId, item }),

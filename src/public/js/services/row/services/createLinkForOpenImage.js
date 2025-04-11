@@ -6,7 +6,7 @@ var createLinkForOpenImage = async (userId, orderId) => {
 
   btn.addEventListener("click", async (e) => {
     e.preventDefault();
-    console.log("click");
+
     var requestAddress = "/image/check/" + userId + "/" + orderId;
 
     var fileIsExists = await checkFileExists(requestAddress);

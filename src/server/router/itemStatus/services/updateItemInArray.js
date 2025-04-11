@@ -1,10 +1,14 @@
-var updateItemInArray = async (newItem, order) => {
-  var { items } = order;
-
+var updateItemInArray = async (newItem, { items }) => {
   items.forEach((item) => {
     if (item.url == newItem.url) {
-      item.purchased = newItem.purchased;
+      if (Object.keys(newItem)[1] == "delivered") {
+        item.delivered = newItem.delivered;
+      } else if (Object.keys(newItem)[1] == "purchased") {
+        item.purchased = newItem.purchased;
+      }
     }
+
+    return;
   });
 
   return items;

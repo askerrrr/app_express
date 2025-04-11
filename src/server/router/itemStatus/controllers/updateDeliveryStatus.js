@@ -6,14 +6,14 @@ import allItemsAreDelivered from "../services/allItemsAreDelivered.js";
 var updateDeliveryStatus = async (req, res) => {
   var { userId, orderId, item } = req.body;
 
-  var { getOrders, getItemsData, updateItemStatus } =
+  var { getOrder, getItemsData, updateItemStatus } =
     req.app.locals.itemCollectionServices();
   var { getOrderStatus, updateOrderStatusFromDB } =
     req.app.locals.userCollectionServices();
 
   try {
-    var orders = await getOrders(userId, orderId);
-    var items = await updateItemInArray(item, orders);
+    var order = await getOrder(userId, orderId);
+    var items = await updateItemInArray(item, order);
 
     var succesfullUpdateItemStatus = await updateItemStatus(
       userId,
