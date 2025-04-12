@@ -9,7 +9,9 @@ var GetUsers = async () => {
 
   var users = await response.json();
 
-  users.forEach(async (user) => await rowForUserList(user));
+  for (var user of users) {
+    await rowForUserList(user);
+  }
 };
 
 GetUsers().catch((err) => alert("error: ", err));
