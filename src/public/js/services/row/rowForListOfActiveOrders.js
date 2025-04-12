@@ -4,9 +4,7 @@ import createOrderLink from "./services/createOrderLink.js";
 import createDeleteUserForm from "../different/formForDeleteUser.js";
 import getOrderStatusDescription from "./services/getOrderStatusDescription.js";
 
-var rowForListOfActiveOrders = async (data) => {
-  var { userId, orders } = data;
-
+var rowForListOfActiveOrders = async ({ userId, orders }) => {
   document.title = "Пользователь " + userId;
 
   var tbody = document.createElement("tbody");
@@ -14,10 +12,10 @@ var rowForListOfActiveOrders = async (data) => {
   var table = document.getElementById("active");
 
   var activeOrders = orders.filter(
-    (order) => order.orderStatus.value !== "order-is-completed:6"
+    (order) => order.orderStatus.value !== "order-is-completed"
   );
 
-  activeOrders.forEach(async (order) => {
+  for (var order of activeOrders) {
     var { id, date, orderStatus } = order;
 
     var tr = document.createElement("tr");
@@ -29,15 +27,14 @@ var rowForListOfActiveOrders = async (data) => {
     );
 
     tbody.append(tr);
-    table.append(tbody);
-    return table;
-  });
+  }
+  table.append(tbody);
 
   var completedOrders = orders.filter(
-    (order) => order.orderStatus == "order-is-completed:6"
+    (order) => order.orderStatus.value == "order-is-completed"
   );
 
-  if (completedOrders.length > 0) {
+  if (completedOrders.length) {
     await showCompletedOrders(completedOrders);
   }
 
@@ -45,23 +42,27 @@ var rowForListOfActiveOrders = async (data) => {
 
   var body = document.getElementById("body");
   body.append(formForDeleteUser);
+  return body;
 };
 
 var showCompletedOrders = async (completedOrders) => {
   var btn = document.createElement("button");
+
   btn.append("Показать завершенные");
+
   btn.id = "show-completed";
+
   btn.addEventListener("click", async (e) => {
     e.preventDefault();
+
     btn.disabled = true;
-    await deleteCompeledOrders();
+
+    await hideCompeledOrders();
 
     var tbody = document.createElement("tbody");
     tbody.id = "tbody-completed";
 
-    var table = document.getElementById("completed");
-
-    completedOrders.forEach(async (order) => {
+    for (var order of completedOrders) {
       var { id, date, userId, orderStatus } = order;
 
       var tr = document.createElement("tr");
@@ -73,9 +74,12 @@ var showCompletedOrders = async (completedOrders) => {
       );
 
       tbody.append(tr);
-      table.append(tbody);
-      return table;
-    });
+    }
+
+    var table = document.getElementById("completed");
+
+    table.append(tbody);
+    return table;
   });
 
   var form = document.createElement("form");
@@ -85,7 +89,7 @@ var showCompletedOrders = async (completedOrders) => {
   body.append(form);
 };
 
-var deleteCompeledOrders = async () => {
+var hideCompeledOrders = async () => {
   var btn = document.createElement("button");
   btn.append("Скрыть");
 
