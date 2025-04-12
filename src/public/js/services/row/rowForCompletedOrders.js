@@ -6,9 +6,8 @@ import getOrderStatusDescription from "./services/getOrderStatusDescription.js";
 var rowForCompletedOrders = async (userId, completedOrders) => {
   var tbody = document.createElement("tbody");
   tbody.id = userId;
-  var table = document.getElementById("completed");
 
-  completedOrders.forEach(async (order) => {
+  for (var order of completedOrders) {
     var { id, date, orderStatus } = order;
 
     var tr = document.createElement("tr");
@@ -20,9 +19,11 @@ var rowForCompletedOrders = async (userId, completedOrders) => {
     );
 
     tbody.append(tr);
-    table.append(tbody);
-    return table;
-  });
+  }
+
+  var table = document.getElementById("completed");
+
+  table.append(tbody);
 
   var formForDeleteUser = await createDeleteUserForm(userId);
 
