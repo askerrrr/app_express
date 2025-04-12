@@ -11,41 +11,33 @@ import changePurchasedStatus from "./services/changePurchasedStatus.js";
 import createTableHeadToXLSX from "./services/createTableHeadToXLSX.js";
 import createBackToOrderButton from "./services/createBackToOrderButton.js";
 
+var index = 0;
+
 var rowForXLSX = async (data, userId, orderId) => {
-  var thead = createTableHeadToXLSX();
   var tbody = document.createElement("tbody");
-  var table = document.createElement("table");
 
   var { items } = data;
 
-  items.forEach(async (item, index) => {
-    var img = await getImageFromXLSX(item.img);
-    var url = await getUrlFromXLSX(item.url);
-    var qty = await getQuantityFromXLSX(item.description.qty);
-    var size = await getSizeFromXLSX(item.description.size);
-    var itemId = await getItemId(item.id);
-    var itemPrice = await getPriceOfEach(item.price);
-    var totalSum = await getTotalSum(data.totalSum);
-    var purchasedStatus = await changePurchasedStatus(userId, orderId, item);
-    var deliveryStatus = await changeDeliveryStatus(userId, orderId, item);
-
+  for (var item of items) {
     var tr = document.createElement("tr");
     tr.append(
-      img,
-      url,
-      qty,
-      size,
-      itemPrice,
-      totalSum,
-      purchasedStatus,
-      deliveryStatus,
-      itemId,
-      await setItemId(userId, orderId, index)
+      await getImageFromXLSX(item.img),
+      await getUrlFromXLSX(item.url),
+      await getQuantityFromXLSX(item.description.qty),
+      await getSizeFromXLSX(item.description.size),
+      await getItemId(item.id),
+      await getPriceOfEach(item.price),
+      await getTotalSum(data.totalSum),
+      await changePurchasedStatus(userId, orderId, item),
+      await changeDeliveryStatus(userId, orderId, item),
+      await setItemId(userId, orderId, index++)
     );
 
     tbody.append(tr);
-    return tbody;
-  });
+  }
+
+  var table = document.createElement("table");
+  var thead = createTableHeadToXLSX();
 
   table.append(thead, tbody);
 

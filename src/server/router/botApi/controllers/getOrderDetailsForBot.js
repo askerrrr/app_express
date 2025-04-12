@@ -25,10 +25,10 @@ var getOrderDetails = async (req, res) => {
     var orderDetailsForBot = await getOrderDetailsForBot(orders);
 
     var activeOrders = orderDetailsForBot.filter(
-      (order) => order.status !== "order-is-completed:6"
+      (order) => order.orderStatus.value !== "order-is-completed"
     );
     var completedOrders = orderDetailsForBot.filter(
-      (order) => order.status === "order-is-completed:6"
+      (order) => order.orderStatus.value === "order-is-completed"
     );
 
     return orders.length
