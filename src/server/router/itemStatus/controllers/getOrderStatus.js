@@ -3,22 +3,10 @@ import logger from "../../../logger.js";
 var getOrderStatus = async (req, res) => {
   var { userId, orderId } = req.params;
 
-  var { getUser } = req.app.locals.userCollectionServices();
+  var { getOrderStatus } = req.app.locals.userCollectionServices();
 
   try {
-    var { orders } = await getUser(userId);
-
-    if (!orders.length) {
-      return res.sendStatus(404);
-    }
-
-    var order = orders.find((order) => order.id === orderId);
-
-    if (!order) {
-      return res.sendStatus(404);
-    }
-
-    var { orderStatus } = order;
+    var orderStatus = await getOrderStatus(userId, orderId);
 
     return res.json({ orderStatus });
   } catch (err) {

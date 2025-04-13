@@ -10,6 +10,6 @@ router.post("/api/users", createUser);
 
 router.post("/api/order", createOrder);
 
-router.get("/api/status/:userId", getOrderDetails);
+router.get("/api/orders/:userId", getOrderDetails);
 
 export { router as botApi };

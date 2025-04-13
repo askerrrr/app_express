@@ -1,5 +1,4 @@
 async function updateItemStatus(userId, orderId, items) {
-  console.log("items: ", items);
   var result = await this.updateOne(
     { userId, "orders.id": orderId },
     {

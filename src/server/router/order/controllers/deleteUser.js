@@ -12,18 +12,20 @@ var deleteUser = async (req, res) => {
 
   try {
     var successfullResponse = await sendDeleteUserRequest(userId);
-    var isUserFolderDeleted = await deleteUserFolder(userId);
+    var userFolderIsDeleted = await deleteUserFolder(userId);
 
-    var successfullDeletedFromUserCollection =
-      await deleteUserFromUserCollection(userId);
+    var userIsDeletedFromUserCollection = await deleteUserFromUserCollection(
+      userId
+    );
 
-    var successfullDeletedFromItemCollection =
-      await deleteUserFromItemCollection(userId);
+    var userIsDeletedFromItemCollection = await deleteUserFromItemCollection(
+      userId
+    );
 
     return successfullResponse &&
-      isUserFolderDeleted &&
-      successfullDeletedFromUserCollection &&
-      successfullDeletedFromItemCollection
+      userFolderIsDeleted &&
+      userIsDeletedFromUserCollection &&
+      userIsDeletedFromItemCollection
       ? res.sendStatus(200)
       : res.sendStatus(304);
   } catch (err) {

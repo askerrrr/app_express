@@ -8,7 +8,9 @@ var checkFileExist = async (req, res) => {
 
   try {
     var filePath = await getOrderFilePath(userId, orderId);
+
     var fileIsExists = await checkFileExists(filePath);
+
     return res.json({ fileIsExists });
   } catch (err) {
     logger.error({ place: "checking order file exists", userId, err });

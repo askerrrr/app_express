@@ -12,6 +12,7 @@ var getSheetData = async (req, res) => {
     var filePath = await getOrderFilePath(userId, orderId);
 
     var imageData = await getImageFromXLSX(filePath, userId);
+
     var items = await getItemsData(userId, orderId);
 
     var sheetData = await mergeData(items, imageData);

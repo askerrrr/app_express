@@ -1,4 +1,4 @@
-var updateItemInArray = async (newItem, { items }) => {
+var updateItemInArray = async (newItem, items) => {
   items.forEach((item) => {
     if (item.url == newItem.url) {
       if (Object.keys(newItem)[1] == "delivered") {

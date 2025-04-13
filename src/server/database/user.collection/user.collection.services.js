@@ -1,5 +1,7 @@
 import getAll from "./services/getAll.js";
 import getUser from "./services/getUser.js";
+import getOrder from "./services/getOrder.js";
+import getOrders from "./services/getOrders.js";
 import getOrderType from "./services/getOrderType.js";
 import getOrderFilePath from "./services/getOrderFilePath.js";
 import createNewUser from "./services/createNewUser.js";
@@ -17,6 +19,8 @@ function userCollectionServices() {
   return {
     getAll: getAll.bind(collection),
     getUser: getUser.bind(collection),
+    getOrder: getOrder.bind(collection),
+    getOrders: getOrders.bind(collection),
     getOrderType: getOrderType.bind(collection),
     createNewUser: createNewUser.bind(collection),
     createNewOrder: createNewOrder.bind(collection),

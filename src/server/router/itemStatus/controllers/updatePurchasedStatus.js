@@ -6,24 +6,24 @@ import allItemsArePurchased from "../services/allItemsArePurchased.js";
 var updatePurchasedStatus = async (req, res) => {
   var { userId, orderId, item } = req.body;
 
-  var { getOrders, getItemsData, updateItemStatus } =
+  var { getItemsData, updateItemStatus } =
     req.app.locals.itemCollectionServices();
   var { getOrderStatus, updateOrderStatusFromDB } =
     req.app.locals.userCollectionServices();
 
   try {
-    var orders = await getOrders(userId, orderId);
-    var items = await updateItemInArray(item, orders);
+    var { items } = await getItemsData(userId, orderId);
+    var updatedItems = await updateItemInArray(item, items);
 
-    var itemStatusIsUpdated = await updateItemStatus(userId, orderId, items);
+    var itemsIsUpdated = await updateItemStatus(userId, orderId, updatedItems);
 
-    if (!itemStatusIsUpdated) {
+    if (!itemsIsUpdated) {
       return res.sendStatus(304);
     }
 
     var { items } = await getItemsData(userId, orderId);
 
-    var isAllItemsArePurchased = await allItemsArePurchased(items);
+    var isAllItemsArePurchased = await allItemsArePurchased(updatedItems);
 
     if (isAllItemsArePurchased) {
       var orderStatus = await getOrderStatus(userId, orderId);

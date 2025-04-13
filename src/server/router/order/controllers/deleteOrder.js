@@ -7,25 +7,31 @@ var deleteOrder = async (req, res) => {
 
   var { deleteOrderFromItemCollection } =
     req.app.locals.itemCollectionServices();
+
   var { getOrderFilePath, deleteOrderFromUserCollection } =
     req.app.locals.userCollectionServices();
 
   try {
+    var successfullDeleteOrder = await sendDeleteOrderRequest(userId, orderId);
+
     var filePath = await getOrderFilePath(userId, orderId);
 
-    var successfullResponse = await sendDeleteOrderRequest(userId, orderId);
+    var orderFileIsDeleted = await deleteOrderFile(filePath);
 
-    var isFileDeleted = await deleteOrderFile(filePath);
-    var successfullDeletedFromUserCollection =
-      await deleteOrderFromUserCollection(userId, orderId);
+    var orderIsDeletedFromUserCollection = await deleteOrderFromUserCollection(
+      userId,
+      orderId
+    );
 
-    var successfullDeletedFromItemCollection =
-      await deleteOrderFromItemCollection(userId, orderId);
+    var orderIsDeletedFromItemCollection = await deleteOrderFromItemCollection(
+      userId,
+      orderId
+    );
 
-    return successfullResponse &&
-      isFileDeleted &&
-      successfullDeletedFromUserCollection &&
-      successfullDeletedFromItemCollection
+    return successfullDeleteOrder &&
+      orderFileIsDeleted &&
+      orderIsDeletedFromUserCollection &&
+      orderIsDeletedFromItemCollection
       ? res.sendStatus(200)
       : res.sendStatus(304);
   } catch (err) {

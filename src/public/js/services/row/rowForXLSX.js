@@ -1,7 +1,7 @@
 import getItemId from "./services/getItemId.js";
 import setItemId from "./services/setItemId.js";
 import getTotalSum from "./services/getTotalSum.js";
-import getPriceOfEach from "./services/getItemPrice.js";
+import getPrice from "./services/getItemPrice.js";
 import getUrlFromXLSX from "./services/getUrlFromXLSX.js";
 import getSizeFromXLSX from "./services/getSizeFromXLSX.js";
 import getImageFromXLSX from "./services/getImageFromXLSX.js";
@@ -25,11 +25,11 @@ var rowForXLSX = async (data, userId, orderId) => {
       await getUrlFromXLSX(item.url),
       await getQuantityFromXLSX(item.description.qty),
       await getSizeFromXLSX(item.description.size),
-      await getItemId(item.id),
-      await getPriceOfEach(item.price),
+      await getPrice(item.price),
       await getTotalSum(data.totalSum),
       await changePurchasedStatus(userId, orderId, item),
       await changeDeliveryStatus(userId, orderId, item),
+      await getItemId(item.id),
       await setItemId(userId, orderId, index++)
     );
 
