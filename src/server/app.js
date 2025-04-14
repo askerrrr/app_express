@@ -10,21 +10,23 @@ import verifyToken from "./router/services/verifyToken.js";
 import userCollectionServices from "./database/user.collection/user.collection.services.js";
 import itemCollectionServices from "./database/item.collection/itemCollectionServices.js";
 
+import mongoose from "mongoose";
+
 var app = express();
-var mongodb = new MongoClient(env.mongo_url);
+//var mongodb = new MongoClient("mongodb://127.0.0.1:27017/database");
 var __dirname = dirname(fileURLToPath(import.meta.url));
 
 (async () => {
   try {
-    await mongodb
-      .connect()
+    await mongoose
+      .connect("mongodb://127.0.0.1:27017/database")
       .then(() => console.log("Успешное подключение к mongodb"));
 
     app.listen(env.PORT, env.HOST, () =>
       console.log(`The server is running on http://${env.HOST}:${env.PORT}`)
     );
 
-    var collection = mongodb.db("database").collection("users");
+    var collection = mongoose.model("User", "UserSchema"); //mongodb.db("database").collection("users");
     var itemCollection = mongodb.db("database").collection("items");
     var adminCollection = mongodb.db("admin").collection("adminData");
 
