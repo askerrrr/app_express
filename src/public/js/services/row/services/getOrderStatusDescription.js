@@ -39,6 +39,8 @@ var getOrderStatusDescription = async (status) => {
       td.append("Завершен");
       td.style.color = "#ff0000";
       break;
+    default:
+      td.append("Неизвестный статус - " + status.value);
   }
   return td;
 };
