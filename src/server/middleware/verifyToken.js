@@ -1,5 +1,5 @@
 import JWT from "jsonwebtoken";
-import env from "../../env_var.js";
+import env from "../env_var.js";
 
 var verifyToken = async (req, res, next) => {
   try {

@@ -6,7 +6,7 @@ import { MongoClient } from "mongodb";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 import cookieParser from "cookie-parser";
-import verifyToken from "./router/services/verifyToken.js";
+import verifyToken from "./middleware/verifyToken.js";
 import userCollectionServices from "./database/user.collection/user.collection.services.js";
 import itemCollectionServices from "./database/item.collection/itemCollectionServices.js";
 
