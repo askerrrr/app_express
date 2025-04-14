@@ -1,5 +1,5 @@
-async function createOrderEntity(userId, orderId) {
-  var result = await this.updateOne(
+var createOrderEntity = async (collection, userId, orderId) => {
+  var result = await collection.updateOne(
     { userId },
     {
       $push: { orders: { id: orderId, totalSum: "", items: [] } },
@@ -7,6 +7,6 @@ async function createOrderEntity(userId, orderId) {
   );
 
   return result.modifiedCount == 1;
-}
+};
 
 export default createOrderEntity;

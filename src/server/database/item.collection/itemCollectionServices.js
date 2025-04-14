@@ -1,29 +1,42 @@
 import addItems from "./services/addItems.js";
 import getItemId from "./services/getItemId.js";
 import getOrder from "./services/getOrder.js";
+import deleteUser from "./services/deleteUser.js";
+import deleteOrder from "./services/deleteOrder.js";
 import updateItemId from "./services/updateItemId.js";
 import getItemsData from "./services/getItemsData.js";
 import createOrderEntity from "./services/createOrderEntity.js";
 import updateItemStatus from "./services/updateItemStatus.js";
 import createItemCollection from "./services/createItemCollection.js";
-import deleteUserFromItemCollection from "./services/deleteUserFromItemCollection.js";
-import deleteOrderFromItemCollection from "./services/deleteOrderFromItemCollection.js";
 
 function itemCollectionServices() {
   var collection = this;
 
   return {
-    addItems: addItems.bind(collection),
-    getItemId: getItemId.bind(collection),
-    getOrder: getOrder.bind(collection),
-    updateItemId: updateItemId.bind(collection),
-    getItemsData: getItemsData.bind(collection),
-    updateItemStatus: updateItemStatus.bind(collection),
-    createOrderEntity: createOrderEntity.bind(collection),
-    createItemCollection: createItemCollection.bind(collection),
-    deleteUserFromItemCollection: deleteUserFromItemCollection.bind(collection),
-    deleteOrderFromItemCollection:
-      deleteOrderFromItemCollection.bind(collection),
+    addItems: (userId, orderId, xlsxData) =>
+      addItems(collection, userId, orderId, xlsxData),
+
+    getItemId: (userId, orderId) => getItemId(collection, userId, orderId),
+
+    getOrder: (userId, orderId) => getOrder(collection, userId, orderId),
+
+    updateItemId: (userId, orderId, items) =>
+      updateItemId(collection, userId, orderId, items),
+
+    getItemsData: (userId, orderId) =>
+      getItemsData(collection, userId, orderId),
+
+    updateItemStatus: (userId, orderId) =>
+      updateItemStatus(collection, userId, orderId),
+
+    createOrderEntity: (userId, orderId) =>
+      createOrderEntity(collection, userId, orderId),
+
+    createItemCollection: (data) => createItemCollection(collection, data),
+
+    deleteUser: (userId) => deleteUser(collection, userId),
+
+    deleteOrder: (userId, orderId) => deleteOrder(collection, userId, orderId),
   };
 }
 

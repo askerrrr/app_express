@@ -1,5 +1,5 @@
-async function updateItemStatus(userId, orderId, items) {
-  var result = await this.updateOne(
+var updateItemStatus = async (collection, userId, orderId, items) => {
+  var result = await collection.updateOne(
     { userId, "orders.id": orderId },
     {
       $set: { "orders.$.items": items },
@@ -7,6 +7,6 @@ async function updateItemStatus(userId, orderId, items) {
   );
 
   return result.modifiedCount;
-}
+};
 
 export default updateItemStatus;

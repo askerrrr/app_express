@@ -14,32 +14,20 @@ var createOrder = async (req, res) => {
       return res.sendStatus(401);
     }
 
-    var {
-      addItems,
-      createOrderEntity,
-      createItemCollection,
-      deleteUserFromItemCollection,
-      deleteOrderFromItemCollection,
-    } = req.app.locals.itemCollectionServices();
+    var itemCollection = req.app.locals.itemCollectionServices();
 
-    var {
-      getUser,
-      addNewOrder,
-      createNewUser,
-      deleteUserFromUserCollection,
-      deleteOrderFromUserCollection,
-    } = req.app.locals.userCollectionServices();
+    var userCollection = req.app.locals.userCollectionServices();
 
     var deleteOrderData = async () => {
       await deleteOrderFile(path);
-      await deleteOrderFromItemCollection(userId, id);
-      await deleteOrderFromUserCollection(userId, id);
+      await itemCollection.deleteOrder(userId, id);
+      await userCollection.deleteOrder(userId, id);
       return res.sendStatus(304);
     };
 
     var deleteUserData = async () => {
-      await deleteUserFromUserCollection(userData.userId);
-      await deleteUserFromItemCollection(userData.userId);
+      await userCollection.deleteUser(userData.userId);
+      await itemCollection.deleteUser(userData.userId);
       return res.sendStatus(304);
     };
 
@@ -47,11 +35,11 @@ var createOrder = async (req, res) => {
 
     var { id, file, type, userId } = order;
 
-    var user = await getUser(userId);
+    var user = await userCollection.getUser(userId);
 
     if (!user) {
-      var userIsCreated = await createNewUser(order);
-      var itemCollectionIsCreated = await createItemCollection(order);
+      var userIsCreated = await userCollection.createUser(order);
+      var itemCollection = await itemCollection.createItemCollection(order);
 
       if (!userIsCreated || !itemCollectionIsCreated) {
         await deleteUserData();
@@ -60,7 +48,7 @@ var createOrder = async (req, res) => {
 
     var { path, telegramApiFileUrl } = file;
 
-    var orderIsAdded = await addNewOrder(order);
+    var orderIsAdded = await userCollection.createOrder(order);
 
     if (!orderIsAdded) {
       await deleteOrderData();
@@ -73,15 +61,15 @@ var createOrder = async (req, res) => {
     }
 
     if (type == "multiple") {
-      var orderEntryIsCreated = await createOrderEntity(userId, id);
+      var orderEntity = await itemCollection.createOrderEntity(userId, id);
 
-      if (!orderEntryIsCreated) {
+      if (!orderEntity) {
         await deleteOrderData();
       }
 
       var xlsxData = await getDataFromXLSX(path);
 
-      var itemsIsAdded = await addItems(userId, id, xlsxData);
+      var itemsIsAdded = await itemCollection.addItems(userId, id, xlsxData);
 
       if (!itemsIsAdded) {
         await deleteOrderData();

@@ -20,12 +20,12 @@ var createItem = ({ url, price, qty, size }) => {
   return items;
 };
 
-async function addItems(userId, orderId, xlsxData) {
+var addItems = async (collection, userId, orderId, xlsxData) => {
   var items = createItem(xlsxData);
 
   var totalSum = xlsxData.totalSum[0];
 
-  var result = await this.updateOne(
+  var result = await collection.updateOne(
     { userId: userId, "orders.id": orderId },
     {
       $set: {
@@ -36,6 +36,6 @@ async function addItems(userId, orderId, xlsxData) {
   );
 
   return result.modifiedCount == 1;
-}
+};
 
 export default addItems;

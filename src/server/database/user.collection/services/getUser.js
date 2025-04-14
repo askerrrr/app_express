@@ -1,5 +1,4 @@
-var getUser = async function (userId) {
-  return await this.findOne({ userId });
-};
+var getUser = async (collection, userId) =>
+  await collection.findOne({ userId });
 
 export default getUser;

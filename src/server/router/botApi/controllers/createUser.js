@@ -12,30 +12,30 @@ var createUser = async (req, res) => {
       return;
     }
 
+    var userData = req.body;
+
+    var itemCollection = req.app.locals.itemCollectionServices();
+
+    var userCollection = req.app.locals.userCollectionServices();
+
     var deleteUserData = async () => {
-      await deleteUserFromUserCollection(userData.userId);
-      await deleteUserFromItemCollection(userData.userId);
+      await userCollection.deleteUser(userData.userId);
+      await itemCollection.deleteUser(userData.userId);
       return res.sendStatus(304);
     };
 
-    var userData = req.body;
-
-    var { createItemCollection, deleteUserFromItemCollection } =
-      req.app.locals.itemCollectionServices();
-
-    var { getUser, createNewUser, deleteUserFromUserCollection } =
-      req.app.locals.userCollectionServices();
-
-    var user = await getUser(userData.userId);
+    var user = await userCollection.getUser(userData.userId);
 
     if (!user) {
-      var userIsCreated = await createNewUser(userData);
+      var userIsCreated = await userCollection.createUser(userData);
 
       if (!userIsCreated) {
         await deleteUserData();
       }
 
-      var itemCollectionIsCreated = await createItemCollection(userData);
+      var itemCollectionIsCreated = await itemCollection.createItemCollection(
+        userData
+      );
 
       if (!itemCollectionIsCreated) {
         await deleteUserData();

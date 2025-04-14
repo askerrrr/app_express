@@ -1,7 +1,7 @@
-async function getOrders(userId) {
-  var { orders } = await this.findOne({ userId });
+var getOrders = async (collection, userId) => {
+  var { orders } = await collection.findOne({ userId });
 
   return orders;
-}
+};
 
 export default getOrders;
