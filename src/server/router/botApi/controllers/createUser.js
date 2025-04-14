@@ -8,8 +8,7 @@ var createUser = async (req, res) => {
     var validAuthHeader = await validateAuthHeader(authHeader);
 
     if (!validAuthHeader) {
-      res.sendStatus(401);
-      return;
+      return res.sendStatus(401);
     }
 
     var userData = req.body;
@@ -18,27 +17,17 @@ var createUser = async (req, res) => {
 
     var userCollection = req.app.locals.userCollectionServices();
 
-    var deleteUserData = async () => {
-      await userCollection.deleteUser(userData.userId);
-      await itemCollection.deleteUser(userData.userId);
-      return res.sendStatus(304);
-    };
-
     var user = await userCollection.getUser(userData.userId);
 
     if (!user) {
       var userIsCreated = await userCollection.createUser(userData);
 
-      if (!userIsCreated) {
-        await deleteUserData();
-      }
+      var collectionIsCreated = await itemCollection.createCollection(userData);
 
-      var itemCollectionIsCreated = await itemCollection.createItemCollection(
-        userData
-      );
-
-      if (!itemCollectionIsCreated) {
-        await deleteUserData();
+      if (!userIsCreated || !collectionIsCreated) {
+        await userCollection.deleteUser(userData.userId);
+        await itemCollection.deleteUser(userData.userId);
+        return res.sendStatus(304);
       }
 
       return res.sendStatus(200);

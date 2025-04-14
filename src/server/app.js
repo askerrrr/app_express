@@ -16,7 +16,10 @@ var __dirname = dirname(fileURLToPath(import.meta.url));
 
 (async () => {
   try {
-    await mongodb.connect();
+    await mongodb
+      .connect()
+      .then(() => console.log("Успешное подключение к mongodb"));
+
     app.listen(env.PORT, env.HOST, () =>
       console.log(`The server is running on http://${env.HOST}:${env.PORT}`)
     );
