@@ -13,7 +13,7 @@ import updateOrderStatusFromDB from "./services/updateOrderStatus.js";
 import deleteUser from "./services/deleteUser.js";
 import deleteOrder from "./services/deleteOrder.js";
 
-import { userCollection } from "../connections/userDBConnection.js";
+import userCollection from "./connections/index.js";
 
 var userCollectionServices = () => {
   return {

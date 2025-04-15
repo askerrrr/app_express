@@ -1,6 +1,6 @@
 import { Schema } from "mongoose";
 
-import DescriptionSchema from "../user.collection/descriptionSchema.js";
+import DescriptionSchema from "../../user.collection/schemas/descriptionSchema.js";
 
 var ItemSchema = new Schema(
   {
@@ -20,6 +20,7 @@ var ItemSchema = new Schema(
     },
     description: { type: DescriptionSchema, required: true },
     url: { type: String, required: true, trim: true },
+    img: { type: String, required: false },
   },
   { _id: false }
 );

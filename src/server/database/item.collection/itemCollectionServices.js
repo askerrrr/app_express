@@ -9,7 +9,7 @@ import createOrderEntity from "./services/createOrderEntity.js";
 import updateItemStatus from "./services/updateItemStatus.js";
 import createItemCollection from "./services/createItemCollection.js";
 
-import { itemCollection } from "../connections/userDBConnection.js";
+import itemCollection from "./connections/index.js";
 
 var itemCollectionServices = () => {
   return {
@@ -26,8 +26,8 @@ var itemCollectionServices = () => {
     getItemsData: (userId, orderId) =>
       getItemsData(itemCollection, userId, orderId),
 
-    updateItemStatus: (userId, orderId) =>
-      updateItemStatus(itemCollection, userId, orderId),
+    updateItemStatus: (userId, orderId, items) =>
+      updateItemStatus(itemCollection, userId, orderId, items),
 
     createOrderEntity: (userId, orderId) =>
       createOrderEntity(itemCollection, userId, orderId),

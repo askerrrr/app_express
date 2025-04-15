@@ -1,5 +1,6 @@
 import mongoose from "mongoose";
-import adminSchema from "../schemas/admin.collection/admin.schema.js";
+
+import adminSchema from "./admin.schema.js";
 
 var adminDB = mongoose.createConnection("mongodb://127.0.0.1:27017/admin");
 

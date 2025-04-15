@@ -1,5 +1,5 @@
 import argon2 from "argon2";
-import adminCollection from "../../../database/connections/adminDBConnection.js";
+import adminCollection from "../../../database/admin.collection/admin.collection.js";
 
 var verifyFormData = async (userLogin, userPasswd) => {
   try {
