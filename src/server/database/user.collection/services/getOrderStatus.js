@@ -1,5 +1,5 @@
 var getOrderStatus = async (collection, userId, orderId) => {
-  var { orders } = await collection.findOne({ userId });
+  var { orders } = await collection.findOne({ userId }).exec();
 
   var { orderStatus } = orders.find((order) => order.id == orderId);
 

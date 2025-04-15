@@ -1,5 +1,5 @@
 var getOrders = async (collection, userId) => {
-  var { orders } = await collection.findOne({ userId });
+  var { orders } = await collection.findOne({ userId }).exec();
 
   return orders;
 };

@@ -4,6 +4,7 @@ var createOrder = async (collection, order) => {
     { $push: { orders: { ...order } } }
   );
 
-  return result.modifiedCount;
+  return result.acknowledged;
 };
+
 export default createOrder;

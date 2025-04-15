@@ -1,7 +1,9 @@
 var createItemCollection = async (collection, { userId }) => {
-  var result = await collection.insertOne({ userId, orders: [] });
+  var itemCollection = await collection.insertOne({ userId, orders: [] });
 
-  return result.acknowledged;
+  var result = await itemCollection.save();
+
+  return result === itemCollection;
 };
 
 export default createItemCollection;

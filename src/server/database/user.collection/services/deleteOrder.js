@@ -6,7 +6,7 @@ var deleteOrder = async (collection, userId, orderId) => {
     }
   );
 
-  return result.modifiedCount;
+  return result.acknowledged;
 };
 
 export default deleteOrder;

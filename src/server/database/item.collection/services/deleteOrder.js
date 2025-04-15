@@ -11,7 +11,7 @@ var deleteOrder = async (collection, userId, orderId) => {
       { $pull: { orders: { id: orderId } } }
     );
 
-    return result.modifiedCount;
+    return result.acknowledged;
   }
 
   return true;

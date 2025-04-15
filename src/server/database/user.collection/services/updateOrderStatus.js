@@ -11,7 +11,7 @@ var updateOrderStatusFromDB = async (
     }
   );
 
-  return result.modifiedCount == 1;
+  return result.acknowledged;
 };
 
 export default updateOrderStatusFromDB;

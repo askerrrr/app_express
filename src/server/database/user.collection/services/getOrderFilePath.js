@@ -1,5 +1,5 @@
 var getOrderFilePath = async (collection, userId, orderId) => {
-  var { orders } = await collection.findOne({ userId });
+  var { orders } = await collection.findOne({ userId }).exec();
 
   var { file } = orders.find((order) => order.id === orderId);
 

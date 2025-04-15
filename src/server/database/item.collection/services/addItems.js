@@ -35,7 +35,7 @@ var addItems = async (collection, userId, orderId, xlsxData) => {
     }
   );
 
-  return result.modifiedCount == 1;
+  return result.acknowledged;
 };
 
 export default addItems;

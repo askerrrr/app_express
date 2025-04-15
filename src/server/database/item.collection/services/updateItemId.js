@@ -6,7 +6,7 @@ var updateItemId = async (collection, userId, orderId, items) => {
     }
   );
 
-  return result.modifiedCount;
+  return result.acknowledged;
 };
 
 export default updateItemId;

@@ -1,12 +1,14 @@
 var createUser = async (collection, { userId, firstName, userName }) => {
-  var result = await collection.insertOne({
+  var user = await collection.insertOne({
     userId,
     firstName,
     userName,
     orders: [],
   });
 
-  return result.acknowledged;
+  var result = await user.save();
+
+  return result === user;
 };
 
 export default createUser;

@@ -1,5 +1,5 @@
 var getItemsData = async (collection, userId, orderId) => {
-  var { orders } = await collection.findOne({ userId });
+  var { orders } = await collection.findOne({ userId }).exec();
 
   var { items, totalSum } = orders.find((order) => order.id == orderId);
 

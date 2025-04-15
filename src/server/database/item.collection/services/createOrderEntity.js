@@ -6,7 +6,7 @@ var createOrderEntity = async (collection, userId, orderId) => {
     }
   );
 
-  return result.modifiedCount == 1;
+  return result.acknowledged;
 };
 
 export default createOrderEntity;
