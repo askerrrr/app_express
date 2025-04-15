@@ -1,3 +1,3 @@
-var getAll = async (collection) => await collection.find({}).toArray();
+var getAll = async (collection) => await collection.find({}).exec();
 
 export default getAll;

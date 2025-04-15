@@ -1,4 +1,4 @@
-import userCollectionServices from "../../user.collection/user.collection.services.js";
+import userCollectionServices from "../../user.collection/userSollectionServices.js";
 
 var deleteOrder = async (collection, userId, orderId) => {
   var { getOrderType } = userCollectionServices();

@@ -9,35 +9,36 @@ import createOrderEntity from "./services/createOrderEntity.js";
 import updateItemStatus from "./services/updateItemStatus.js";
 import createItemCollection from "./services/createItemCollection.js";
 
-function itemCollectionServices() {
-  var collection = this;
+import { itemCollection } from "../connections/userDBConnection.js";
 
+var itemCollectionServices = () => {
   return {
     addItems: (userId, orderId, xlsxData) =>
-      addItems(collection, userId, orderId, xlsxData),
+      addItems(itemCollection, userId, orderId, xlsxData),
 
-    getItemId: (userId, orderId) => getItemId(collection, userId, orderId),
+    getItemId: (userId, orderId) => getItemId(itemCollection, userId, orderId),
 
-    getOrder: (userId, orderId) => getOrder(collection, userId, orderId),
+    getOrder: (userId, orderId) => getOrder(itemCollection, userId, orderId),
 
     updateItemId: (userId, orderId, items) =>
-      updateItemId(collection, userId, orderId, items),
+      updateItemId(itemCollection, userId, orderId, items),
 
     getItemsData: (userId, orderId) =>
-      getItemsData(collection, userId, orderId),
+      getItemsData(itemCollection, userId, orderId),
 
     updateItemStatus: (userId, orderId) =>
-      updateItemStatus(collection, userId, orderId),
+      updateItemStatus(itemCollection, userId, orderId),
 
     createOrderEntity: (userId, orderId) =>
-      createOrderEntity(collection, userId, orderId),
+      createOrderEntity(itemCollection, userId, orderId),
 
-    createItemCollection: (data) => createItemCollection(collection, data),
+    createItemCollection: (data) => createItemCollection(itemCollection, data),
 
-    deleteUser: (userId) => deleteUser(collection, userId),
+    deleteUser: (userId) => deleteUser(itemCollection, userId),
 
-    deleteOrder: (userId, orderId) => deleteOrder(collection, userId, orderId),
+    deleteOrder: (userId, orderId) =>
+      deleteOrder(itemCollection, userId, orderId),
   };
-}
+};
 
 export default itemCollectionServices;
