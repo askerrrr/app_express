@@ -6,7 +6,7 @@ var OrdersSchema = new Schema(
   {
     id: { type: String, required: true },
     totalSum: { type: String, required: true, min: 0 },
-    items: [ItemSchema],
+    items: { type: [ItemSchema], required: true },
   },
   { _id: false }
 );

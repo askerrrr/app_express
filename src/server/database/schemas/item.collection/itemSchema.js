@@ -18,7 +18,7 @@ var ItemSchema = new Schema(
       enum: [0, 1],
       default: 0,
     },
-    description: DescriptionSchema,
+    description: { type: DescriptionSchema, required: true },
     url: { type: String, required: true, trim: true },
   },
   { _id: false }

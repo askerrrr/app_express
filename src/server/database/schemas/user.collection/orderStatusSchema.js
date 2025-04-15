@@ -6,7 +6,8 @@ var OrderStatusSchema = new Schema(
       type: Number,
       required: true,
       default: 0,
-      enum: [0, 1, 2, 3, 4, 5, 6],
+      min: 0,
+      max: 6,
     },
     value: {
       type: String,

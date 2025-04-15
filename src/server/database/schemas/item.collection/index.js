@@ -4,7 +4,7 @@ import OrdersSchema from "./orderSchema.js";
 
 var itemCollectionSchema = new Schema({
   userId: { type: String, required: true },
-  orders: [OrdersSchema],
+  orders: { type: [OrdersSchema], required: false },
 });
 
 export default itemCollectionSchema;
