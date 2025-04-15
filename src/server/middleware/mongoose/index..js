@@ -8,10 +8,6 @@ var mongooseConnection = async () => {
 
 mongoose.Promise = Promise;
 
-mongoose.connection.on("connecting", () =>
-  console.log("mongoose is connecting")
-);
-
 mongoose.connection.on("error", () => mongoose.disconnect());
 
 mongoose.connection.on("disconnected", () =>
