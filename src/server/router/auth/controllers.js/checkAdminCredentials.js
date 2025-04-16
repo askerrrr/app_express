@@ -1,15 +1,15 @@
 import JWT from "jsonwebtoken";
 import env from "../../../env_var.js";
 import logger from "../../../logger.js";
-import verifyFormData from "../service/verifyFormData.js";
+import verifyAdminCredentials from "../service/verifyAdminCredentials.js";
 
-var checkLogin = async (req, res) => {
+var checkAdminCredentials = async (req, res) => {
   var { login, passwd } = req.body;
 
   var collection = req.app.locals.adminCollection;
 
   try {
-    var validFormData = await verifyFormData(login, passwd, collection);
+    var validFormData = await verifyAdminCredentials(login, passwd, collection);
 
     if (validFormData) {
       var token = JWT.sign({ payload: login }, env.secretKey, {
@@ -31,4 +31,4 @@ var checkLogin = async (req, res) => {
   }
 };
 
-export default checkLogin;
+export default checkAdminCredentials;

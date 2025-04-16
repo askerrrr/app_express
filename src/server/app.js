@@ -40,6 +40,7 @@ import { download } from "./router/downloadFile/index.js";
 import { orderStatus } from "./router/orderStatus/index.js";
 import { deliveryStatus } from "./router/itemStatus/deliveryStatus.js";
 import { purchasedStatus } from "./router/itemStatus/purchasedStatus.js";
+import logUserId from "./middleware/logUserId.js";
 
 app.disable("x-powered-by");
 
@@ -57,7 +58,7 @@ app.use("/bot", botApi);
 
 app.use(cookieParser());
 app.use(verifyToken);
-
+app.use(logUserId);
 app.use("/", root);
 
 app.use("/xlsx", xlsx);
@@ -67,5 +68,6 @@ app.use("/itemid", itemId);
 app.use("/orderinfo", order);
 app.use("/download", download);
 app.use("/status", orderStatus);
+
 app.use("/deliverystatus", deliveryStatus);
 app.use("/purchasedstatus", purchasedStatus);
