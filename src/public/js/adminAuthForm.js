@@ -1,4 +1,4 @@
-var formHandler = async () => {
+var adminAuthForm = async () => {
   var form = document.getElementById("auth-form");
 
   return form.addEventListener("submit", async (e) => {
@@ -30,4 +30,4 @@ var formHandler = async () => {
   });
 };
 
-formHandler().catch((err) => alert("error: ", err));
+adminAuthForm().catch((err) => alert("error: ", err));

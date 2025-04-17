@@ -12,7 +12,7 @@ var getUserAuthForm = async (_, res) => {
     );
   } catch (err) {
     logger.error({ place: "getting auth file", userId, err });
-    res.status(500);
+    return res.status(500);
   }
 };
 
