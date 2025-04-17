@@ -12,9 +12,11 @@ var checkAdminCredentials = async (req, res) => {
     var validFormData = await verifyAdminCredentials(login, passwd, collection);
 
     if (validFormData) {
-      var token = JWT.sign({ payload: login }, env.secretKey, {
+      var token = JWT.sign({ login, role: "admin" }, env.secretKey, {
         expiresIn: "1h",
       });
+
+      req.role = "admin";
 
       return res
         .cookie("token", token, {

@@ -9,6 +9,7 @@ import verifyToken from "./middleware/verifyToken.js";
 import { checkState } from "./middleware/mongoose/index..js";
 import userCollectionServices from "./database/user.collection/userSollectionServices.js";
 import itemCollectionServices from "./database/item.collection/itemCollectionServices.js";
+import adminCollection from "./database/admin.collection/admin.collection.js";
 
 var app = express();
 
@@ -23,6 +24,7 @@ var __dirname = dirname(fileURLToPath(import.meta.url));
     app.locals.userCollectionServices = userCollectionServices;
 
     app.locals.itemCollectionServices = itemCollectionServices;
+    app.locals.adminCollection = adminCollection;
   } catch (err) {
     return logger.error({ place: "app starting", err });
   }

@@ -10,7 +10,7 @@ var formHandler = async () => {
       formData[key] = value;
     });
 
-    var response = await fetch("/auth/admin/login/check", {
+    var response = await fetch("/auth/user/login/check", {
       method: "POST",
       body: JSON.stringify(formData),
       headers: {
@@ -19,14 +19,18 @@ var formHandler = async () => {
     });
 
     if (!response.ok) {
+      alert("Неверно");
       return;
     }
 
-    var json = await response.json();
+    var { redirect, login } = await response.json();
 
-    return json.redirect
-      ? (window.location.href = "/")
-      : (window.location.href = "/auth/login");
+    if (redirect) {
+      window.location.href = "/orderinfo/orders/" + login;
+    } else {
+      alert("Неверно");
+      window.location.href = "/auth/user/login";
+    }
   });
 };
 

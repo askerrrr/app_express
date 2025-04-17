@@ -1,5 +1,5 @@
 var logUserId = async (req, res, next) => {
-  console.log("log", req.user);
+  // console.log("log", req.user);
   next();
 };
 

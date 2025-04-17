@@ -1,7 +1,8 @@
 import mongoose from "mongoose";
+import env from "../../env_var.js";
 
 var mongooseConnection = async () => {
-  var userDB = mongoose.connect("mongodb://127.0.0.1:27017/users");
+  var userDB = mongoose.connect(env.mongo_url);
 
   userDB.then(() => console.log("mongoose is connected"));
 };

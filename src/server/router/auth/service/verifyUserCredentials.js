@@ -2,17 +2,28 @@ import argon2 from "argon2";
 
 var verifyUserCredentials = async (userLogin, userPasswd, collection) => {
   try {
-    var { userId, passwd } = await collection.getUser().exec();
+    var userData = await collection.getUser(userLogin);
 
-    var validLogin = await argon2.verify(userId, userLogin);
-
-    if (!validLogin) {
+    if (!userData) {
       return;
     }
 
-    var validPasswd = await argon2.verify(passwd, userPasswd);
+    var { userId, passwd } = userData;
 
-    return validPasswd;
+    if (userLogin !== userId) {
+      return;
+    }
+
+    return userPasswd == passwd;
+    //var validLogin = await argon2.verify(userId, userLogin);
+
+    // if (!validLogin) {
+    //   return;
+    // }
+
+    // var validPasswd = await argon2.verify(passwd, userPasswd);
+
+    // return validPasswd;
   } catch (err) {
     console.log(err);
   }
