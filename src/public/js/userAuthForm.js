@@ -10,7 +10,7 @@ var formHandler = async () => {
       formData[key] = value;
     });
 
-    var response = await fetch("/auth/user/login/check", {
+    var response = await fetch("/auth/user/check", {
       method: "POST",
       body: JSON.stringify(formData),
       headers: {
@@ -18,20 +18,20 @@ var formHandler = async () => {
       },
     });
 
-    if (!response.ok) {
-      alert("Неверно");
+    if (response.status == 401) {
+      alert("Введены неверные данные");
       return;
     }
 
-    var { redirect, login } = await response.json();
+    var { redirect, redirectUrl } = await response.json();
 
     if (redirect) {
-      window.location.href = "/orderinfo/orders/" + login;
+      window.location.href = redirectUrl;
     } else {
       alert("Неверно");
-      window.location.href = "/auth/user/login";
+      window.location.href = "/auth/user/";
     }
   });
 };
 
-formHandler().catch((err) => alert("error: ", err));
+formHandler();

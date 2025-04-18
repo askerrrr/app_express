@@ -1,0 +1,19 @@
+import { getOrderListDto } from "../../order/services/getDto.js";
+
+var ordersList = async (req, res) => {
+  var { userId } = req.params;
+
+  var { getUser } = req.app.locals.userCollectionServices();
+
+  try {
+    var user = await getUser(userId);
+    var orderListDto = await getOrderListDto(user);
+
+    return user ? res.json(orderListDto) : res.sendStatus(404);
+  } catch (err) {
+    logger.error({ place: "getting order list", userId, err });
+    return res.status(500);
+  }
+};
+
+export default ordersList;

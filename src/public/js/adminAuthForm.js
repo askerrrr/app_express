@@ -10,7 +10,7 @@ var adminAuthForm = async () => {
       formData[key] = value;
     });
 
-    var response = await fetch("/auth/admin/login/check", {
+    var response = await fetch("/auth/admin/check", {
       method: "POST",
       body: JSON.stringify(formData),
       headers: {
@@ -26,7 +26,7 @@ var adminAuthForm = async () => {
 
     return json.redirect
       ? (window.location.href = "/")
-      : (window.location.href = "/auth/login");
+      : (window.location.href = "/auth/admin");
   });
 };
 

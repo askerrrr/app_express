@@ -44,6 +44,8 @@ import { deliveryStatus } from "./router/itemStatus/deliveryStatus.js";
 import { purchasedStatus } from "./router/itemStatus/purchasedStatus.js";
 import logUserId from "./middleware/logUserId.js";
 
+import { userPath } from "./router/userPath/index.js";
+
 app.disable("x-powered-by");
 
 app.use(
@@ -62,6 +64,8 @@ app.use(cookieParser());
 app.use(verifyToken);
 app.use(logUserId);
 app.use("/", root);
+
+app.use("/user", userPath);
 
 app.use("/xlsx", xlsx);
 app.use("/image", image);

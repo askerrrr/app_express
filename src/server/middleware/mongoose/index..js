@@ -21,7 +21,7 @@ var checkState = (req, res, next) => {
   if (mongoose.connection.readyState !== 1) {
     var err = new Error("Database connection is not established");
     err.status = 500;
-
+    console.log("err: ", err);
     next(err);
   }
 

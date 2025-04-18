@@ -1,28 +1,38 @@
 import JWT from "jsonwebtoken";
 import env from "../env_var.js";
+import { fileURLToPath } from "node:url";
+import { dirname, join } from "node:path";
+
+var __dirname = dirname(fileURLToPath(import.meta.url));
 
 var verifyToken = async (req, res, next) => {
   try {
     var token = req.cookies?.token;
 
     if (!token) {
-      return res.sendStatus(500);
+      return res.redirect("/auth/admin/");
     }
 
-    JWT.verify(token, env.secretKey, (err, decode) => {
-      if (err) {
-        throw err;
+    var user = JWT.verify(token, env.secretKey);
+
+    if (user.role == "admin") {
+      next;
+    }
+
+    if (user.role == "user") {
+      var paths = req.path.split("/");
+
+      if (!paths.includes(user.login)) {
+        return res.redirect("/user/orderlist/" + user.login);
       }
 
-      var { role } = decode;
-      console.log("decode: ", decode);
-      console.log("role: ", role);
-    });
+      next;
+    }
 
     next();
   } catch (err) {
     res.clearCookie("token");
-    return res.redirect("/auth/admin/login");
+    return res.sendFile(join(__dirname, "../../public/html/errorPage.html"));
   }
 };
 export default verifyToken;

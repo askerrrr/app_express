@@ -7,7 +7,7 @@ var checkUserCredentials = async (req, res) => {
   var { login, passwd } = req.body;
 
   var collection = req.app.locals.userCollectionServices();
-  console.log("req.body: ", req.body);
+
   try {
     var validFormData = await verifyUserCredentials(login, passwd, collection);
 
@@ -21,12 +21,15 @@ var checkUserCredentials = async (req, res) => {
           httpOnly: true,
           maxAge: 1000 * 60 * 60,
         })
-        .json({ redirect: true, login });
+        .json({
+          redirect: true,
+          redirectUrl: "/user/orderlist/" + login,
+        });
     }
 
-    return res.sendStatus(403);
+    return res.sendStatus(401);
   } catch (err) {
-    logger.error({ place: "checking auth data", userId, err });
+    logger.error({ place: "checking user auth data", err });
     res.status(500);
   }
 };

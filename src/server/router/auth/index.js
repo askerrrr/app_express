@@ -8,12 +8,12 @@ import checkAdminCredentials from "./controllers.js/checkAdminCredentials.js";
 
 var router = Router({ caseSensitive: true, strict: true });
 
-router.get("/admin/login", getAdminAuthForm);
+router.get("/admin/", getAdminAuthForm);
 
-router.get("/user/login", getUserAuthForm);
+router.get("/user/", getUserAuthForm);
 
-router.post("/user/login/check", checkUserCredentials);
+router.post("/user/check", checkUserCredentials);
 
-router.post("/admin/login/check", checkAdminCredentials);
+router.post("/admin/check", checkAdminCredentials);
 
 export { router as auth };
