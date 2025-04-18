@@ -4,8 +4,6 @@ import createOrderLink from "./services/createOrderLink.js";
 import getOrderStatusDescription from "./services/getOrderStatusDescription.js";
 
 var rowForListOfActiveOrders = async ({ userId, orders }) => {
-  document.title = "Пользователь " + userId;
-
   var tbody = document.createElement("tbody");
   tbody.id = userId;
   var table = document.getElementById("active");

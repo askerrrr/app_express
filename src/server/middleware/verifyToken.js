@@ -10,7 +10,7 @@ var verifyToken = async (req, res, next) => {
     var token = req.cookies?.token;
 
     if (!token) {
-      return res.redirect("/auth/admin/");
+      return res.redirect("/auth/user/");
     }
 
     var user = JWT.verify(token, env.secretKey);
