@@ -22,7 +22,7 @@ var rowForListOfActiveOrders = async ({ userId, orders }) => {
 
     tr.append(
       await getOrderDate(date),
-      await createOrderLink(userId, id),
+      await createOrderLink(userId, id, "admin"),
       await getOrderStatusDescription(orderStatus)
     );
 
