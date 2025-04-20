@@ -59,13 +59,12 @@ app.use(express.static(join(__dirname, "../public")));
 
 app.use("/auth", auth);
 app.use("/bot", botApi);
+app.use("/user", userPath);
 
 app.use(cookieParser());
 app.use(verifyToken);
 app.use(logUserId);
 app.use("/", root);
-
-app.use("/user", userPath);
 
 app.use("/xlsx", xlsx);
 app.use("/image", image);
