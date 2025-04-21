@@ -45,6 +45,7 @@ import { purchasedStatus } from "./router/itemStatus/purchasedStatus.js";
 import logUserId from "./middleware/logUserId.js";
 
 import { userPath } from "./router/userPath/index.js";
+import verifyUserToken from "./middleware/verifyUserToken.js";
 
 app.disable("x-powered-by");
 
@@ -59,9 +60,11 @@ app.use(express.static(join(__dirname, "../public")));
 
 app.use("/auth", auth);
 app.use("/bot", botApi);
-app.use("/user", userPath);
 
 app.use(cookieParser());
+
+app.use("/user", verifyUserToken, userPath);
+
 app.use(verifyToken);
 app.use(logUserId);
 app.use("/", root);

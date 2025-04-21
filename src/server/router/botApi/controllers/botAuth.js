@@ -1,6 +1,6 @@
 import env from "../../../env_var.js";
 import JWT from "jsonwebtoken";
-import validateAuthHeader from "../../botApi/services/validateAuthHeader.js";
+import validateAuthHeader from "../services/validateAuthHeader.js";
 
 var botAuth = async (req, res) => {
   var authHeader = req.headers?.authorization;
@@ -11,16 +11,14 @@ var botAuth = async (req, res) => {
     return res.sendStatus(403);
   }
 
-  var { login, role } = req.body;
-
   var userToken = JWT.sign({ ...req.body }, env.secretKey, {
-    expiresIn: "1m",
+    expiresIn: "1h",
   });
 
   return res
     .cookie("userToken", userToken, {
       httpOnly: true,
-      maxAge: 60 * 60,
+      maxAge: 60 * 60 * 1000,
     })
     .json({ userToken });
 };

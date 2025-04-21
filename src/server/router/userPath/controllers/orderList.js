@@ -1,3 +1,4 @@
+import logger from "../../../logger.js";
 import { getOrderListDto } from "../../order/services/getDto.js";
 
 var ordersList = async (req, res) => {

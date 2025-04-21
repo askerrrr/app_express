@@ -1,12 +1,17 @@
 import env from "../env_var.js";
 import JWT from "jsonwebtoken";
+import { fileURLToPath } from "node:url";
+import { dirname, join } from "node:path";
+
+var __dirname = dirname(fileURLToPath(import.meta.url));
 
 var verifyUserToken = async (req, res, next) => {
   var token = req.cookies?.userToken;
-  console.log("cookies: ", req.cookies);
+  console.log(req.cookies);
+  console.log("token: ", token);
+
   if (!token) {
-    console.log("token is not defined");
-    return;
+    return res.sendFile(join(__dirname, "../../public/html/errorPage.html"));
   }
 
   var user = JWT.verify(token, env.secretKey);
@@ -15,9 +20,7 @@ var verifyUserToken = async (req, res, next) => {
     return res.sendStatus(403);
   }
 
-  var { login, role } = user;
-
-  if (login !== "7413876142" && role !== "user") {
+  if (user.login !== "7413876142" || user.role !== "user") {
     return res.sendStatus(403);
   }
 

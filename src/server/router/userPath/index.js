@@ -5,18 +5,8 @@ import orderListHtml from "./controllers/orderListHtml.js";
 
 import getOrderHTML from "./controllers/getrOrderHtml.js";
 import getOrderData from "./controllers/orderData.js";
-import botAuth from "./controllers/botAuth.js";
 
-import verifyUserToken from "../../middleware/verifyUserToken.js";
-import cookieParser from "cookie-parser";
-
-var router = Router();
-
-router.use(cookieParser());
-
-router.post("/auth", botAuth);
-
-router.use(verifyUserToken);
+var router = Router({ caseSensitive: true, strict: true });
 
 router.get("/orderlist-api/:userId", ordersList);
 router.get("/orderlist/:userId", orderListHtml);

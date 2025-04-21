@@ -16,8 +16,6 @@ var checkAdminCredentials = async (req, res) => {
         expiresIn: "1h",
       });
 
-      req.role = "admin";
-
       return res
         .cookie("token", token, {
           httpOnly: true,
