@@ -43,6 +43,7 @@ import { orderStatus } from "./router/orderStatus/index.js";
 import { deliveryStatus } from "./router/itemStatus/deliveryStatus.js";
 import { purchasedStatus } from "./router/itemStatus/purchasedStatus.js";
 
+import verifyUserPath from "./middleware/verifyUserPath.js";
 import { userPath } from "./router/userPath/index.js";
 
 app.disable("x-powered-by");
@@ -58,7 +59,7 @@ app.use(express.static(join(__dirname, "../public")));
 
 app.use("/auth", auth);
 app.use("/bot", botApi);
-app.use("/user", userPath);
+app.use("/user", verifyUserPath, userPath);
 
 app.use(cookieParser());
 

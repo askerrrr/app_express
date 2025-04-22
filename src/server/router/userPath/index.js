@@ -12,6 +12,6 @@ router.get("/orderlist-api/:userId", ordersList);
 router.get("/orderlist/:userId", orderListHtml);
 
 router.get("/order/:userId/:orderId", getOrderHTML);
-router.get("/api/order/:userId/:orderId", getOrderData);
+router.get("/order-api/:userId/:orderId", getOrderData);
 
 export { router as userPath };
