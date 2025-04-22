@@ -32,7 +32,7 @@ var rowForMultiple = async (order) => {
   table.append(thead, tbody);
 
   var userInfo = await getUserInfo(userId);
-  var backToOrdersButton = await createBackToOrdersButton(userId);
+  var backToOrdersButton = await createBackToOrdersButton(userId, "user");
 
   var body = document.getElementById("userOrder");
   body.append(userInfo, backToOrdersButton, table);
