@@ -11,20 +11,22 @@ var checkAdminCredentials = async (req, res) => {
   try {
     var validFormData = await verifyAdminCredentials(login, passwd, collection);
 
-    if (validFormData) {
-      var token = JWT.sign({ login, role: "admin" }, env.secretKey, {
-        expiresIn: "1h",
-      });
-
-      return res
-        .cookie("token", token, {
-          httpOnly: true,
-          maxAge: 1000 * 60 * 60,
-        })
-        .json({ redirect: true });
+    if (!validFormData) {
+      return res.sendStatus(403);
     }
 
-    return res.sendStatus(403);
+    var payload = { login, role: "admin" };
+
+    var token = JWT.sign(payload, env.secretKey, {
+      expiresIn: "1h",
+    });
+
+    return res
+      .cookie("token", token, {
+        httpOnly: true,
+        maxAge: 1000 * 60 * 60,
+      })
+      .json({ redirect: true });
   } catch (err) {
     logger.error({ place: "checking auth data", userId, err });
     res.status(500);

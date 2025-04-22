@@ -6,8 +6,8 @@ import { dirname, join } from "node:path";
 var __dirname = dirname(fileURLToPath(import.meta.url));
 
 var verifyUserToken = async (req, res, next) => {
-  var token = req.cookies?.userToken;
-  console.log(req.cookies);
+  var token = req.cookies?.token;
+
   console.log("token: ", token);
 
   if (!token) {

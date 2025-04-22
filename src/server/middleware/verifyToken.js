@@ -16,7 +16,7 @@ var verifyToken = async (req, res, next) => {
     var user = JWT.verify(token, env.secretKey);
 
     if (user.role == "admin") {
-      next;
+      return next();
     }
 
     if (user.role == "user") {
@@ -26,10 +26,10 @@ var verifyToken = async (req, res, next) => {
         return res.redirect("/user/orderlist/" + user.login);
       }
 
-      next;
+      return next();
     }
 
-    next();
+    return next();
   } catch (err) {
     res.clearCookie("token");
     return res.sendFile(join(__dirname, "../../public/html/errorPage.html"));

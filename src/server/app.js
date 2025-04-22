@@ -6,7 +6,7 @@ import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 import cookieParser from "cookie-parser";
 import verifyToken from "./middleware/verifyToken.js";
-import { checkState } from "./middleware/mongoose/index..js";
+import { checkState } from "./middleware/mongoose/index.js";
 import userCollectionServices from "./database/user.collection/userSollectionServices.js";
 import itemCollectionServices from "./database/item.collection/itemCollectionServices.js";
 import adminCollection from "./database/admin.collection/admin.collection.js";
@@ -42,10 +42,8 @@ import { download } from "./router/downloadFile/index.js";
 import { orderStatus } from "./router/orderStatus/index.js";
 import { deliveryStatus } from "./router/itemStatus/deliveryStatus.js";
 import { purchasedStatus } from "./router/itemStatus/purchasedStatus.js";
-import logUserId from "./middleware/logUserId.js";
 
 import { userPath } from "./router/userPath/index.js";
-import verifyUserToken from "./middleware/verifyUserToken.js";
 
 app.disable("x-powered-by");
 
@@ -63,12 +61,11 @@ app.use("/bot", botApi);
 
 app.use(cookieParser());
 
-app.use("/user", verifyUserToken, userPath);
-
 app.use(verifyToken);
-app.use(logUserId);
+
 app.use("/", root);
 
+app.use("/user", userPath);
 app.use("/xlsx", xlsx);
 app.use("/image", image);
 app.use("/upload", upload);

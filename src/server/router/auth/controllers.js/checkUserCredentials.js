@@ -11,24 +11,24 @@ var checkUserCredentials = async (req, res) => {
   try {
     var validFormData = await verifyUserCredentials(login, passwd, collection);
 
-    if (validFormData) {
-      var token = JWT.sign({ login, role: "user" }, env.secretKey, {
-        expiresIn: "1h",
-      });
-
-      return res
-        .cookie("token", token, {
-          httpOnly: true,
-          maxAge: 1000 * 60 * 60,
-        })
-        .json({
-          redirect: true,
-          redirectUrl: "/user/orderlist/" + login,
-        });
+    if (!validFormData) {
+      return res.sendStatus(401);
     }
 
-    return res.sendStatus(401);
+    var payload = { login, role: "user" };
+
+    var token = JWT.sign(payload, env.secretKey, {
+      expiresIn: "1h",
+    });
+
+    return res
+      .cookie("token", token, {
+        httpOnly: true,
+        maxAge: 1000 * 60 * 60,
+      })
+      .json({ redirect: true });
   } catch (err) {
+    console.log(err);
     logger.error({ place: "checking user auth data", err });
     res.status(500);
   }
