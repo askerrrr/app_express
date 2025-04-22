@@ -8,8 +8,6 @@ var __dirname = dirname(fileURLToPath(import.meta.url));
 var verifyUserToken = async (req, res, next) => {
   var token = req.cookies?.token;
 
-  console.log("token: ", token);
-
   if (!token) {
     return res.sendFile(join(__dirname, "../../public/html/errorPage.html"));
   }

@@ -1,26 +1,25 @@
-import env from "../../../env_var.js";
 import JWT from "jsonwebtoken";
-import validateAuthHeader from "../services/validateAuthHeader.js";
+import env from "../../../env_var.js";
 
 var botAuth = async (req, res) => {
   try {
     var authHeader = req.headers?.authorization;
 
-    var validHeader = await validateAuthHeader(authHeader);
+    var [type, token] = authHeader.split(" ");
 
-    if (!validHeader) {
+    var user = JWT.verify(token, env.pa_auth_token);
+
+    if (type !== "Bearer" || !user) {
       return res.sendStatus(403);
     }
 
-    var { login, role } = req.body;
+    var { login, role } = user;
 
     var payload = { login, role };
 
     var userToken = JWT.sign(payload, env.secretKey, {
       expiresIn: "1h",
     });
-
-    console.log(payload);
 
     return res
       .cookie("token", userToken, {
@@ -29,7 +28,7 @@ var botAuth = async (req, res) => {
         path: "/user",
         maxAge: 60 * 60 * 1000,
       })
-      .json({ redirect: true });
+      .json({ userToken });
   } catch (err) {
     console.log(err);
   }

@@ -4,18 +4,32 @@ import logger from "../../../logger.js";
 import verifyUserCredentials from "../service/verifyUserCredentials.js";
 
 var checkUserCredentials = async (req, res) => {
-  var { login, passwd } = req.body;
+  // var { login, passwd } = req.body;
 
   var collection = req.app.locals.userCollectionServices();
 
   try {
-    var validFormData = await verifyUserCredentials(login, passwd, collection);
+    // var validFormData = await verifyUserCredentials(login, passwd, collection);
 
-    if (!validFormData) {
-      return res.sendStatus(401);
+    // if (!validFormData) {
+    //   return res.sendStatus(401);
+    // }
+
+    var authHeader = req.headers?.authorization;
+
+    var [type, token] = authHeader.split(" ");
+
+    var user = JWT.verify(token, env.pa_auth_token);
+
+    if (type !== "Bearer" || !user) {
+      return res.sendStatus(403);
     }
 
-    var payload = { login, role: "user" };
+    var { login, role } = user;
+
+    var payload = { login, role };
+
+    //var payload = { login, role: "user" };
 
     var token = JWT.sign(payload, env.secretKey, {
       expiresIn: "1h",
