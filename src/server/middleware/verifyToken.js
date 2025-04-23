@@ -19,16 +19,6 @@ var verifyToken = async (req, res, next) => {
       return next();
     }
 
-    if (user.role == "user") {
-      var paths = req.path.split("/");
-
-      if (!paths.includes(user.login)) {
-        return res.redirect("/user/orderlist/" + user.login);
-      }
-
-      return next();
-    }
-
     return next();
   } catch (err) {
     res.clearCookie("token");
