@@ -1,4 +1,4 @@
-var createBackToOrderButton = async (userId, orderId) => {
+var createBackToOrderButton = async (userId, orderId, role) => {
   var btn = document.createElement("button");
   btn.append("Назад");
 
@@ -6,7 +6,12 @@ var createBackToOrderButton = async (userId, orderId) => {
 
   form.append(btn);
   form.className = "backToOrders";
-  form.action = "/orderinfo/orders/order/" + userId + "/" + orderId;
+
+  if (role == "user") {
+    form.action = "/user/order/" + userId + "/" + orderId;
+  } else {
+    form.action = "/orderinfo/orders/order/" + userId + "/" + orderId;
+  }
 
   return form;
 };

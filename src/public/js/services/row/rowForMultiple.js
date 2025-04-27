@@ -44,7 +44,7 @@ var rowForMultiple = async (order) => {
   var openPopUp = await formForOpenPopUp(userId, id);
   var formForDeleteOrder = await createDeleteOrderForm(userId, id);
 
-  var body = document.getElementById("orderInfo");
+  var body = document.getElementById("order");
   body.append(
     userInfo,
     backToOrdersButton,

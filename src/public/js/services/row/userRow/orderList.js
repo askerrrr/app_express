@@ -1,7 +1,7 @@
-import getOrderDate from "./services/getOrderDate.js";
-import getOrderStatus from "./services/getOrderStatus.js";
-import createOrderLink from "./services/createOrderLink.js";
-import getOrderStatusDescription from "./services/getOrderStatusDescription.js";
+import getOrderDate from "../services/getOrderDate.js";
+import getOrderStatus from "../services/getOrderStatus.js";
+import createOrderLink from "../services/createOrderLink.js";
+import getOrderStatusDescription from "../services/getOrderStatusDescription.js";
 
 var rowForListOfActiveOrders = async ({ userId, orders }) => {
   var tbody = document.createElement("tbody");

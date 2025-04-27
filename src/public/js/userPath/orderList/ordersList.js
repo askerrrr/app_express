@@ -1,4 +1,4 @@
-import orderListForUser from "../../services/row/orderListForUser.js";
+import orderListForUser from "../../services/row/userRow/orderList.js";
 
 var getOrderListForUser = async () => {
   var pathParts = window.location.pathname.split("/");

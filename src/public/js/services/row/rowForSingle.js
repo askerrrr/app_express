@@ -47,7 +47,7 @@ var rowForSingle = async (order) => {
   var backToOrdersButton = await createBackToOrdersButton(userId);
   var formForDeleteOrder = await createDeleteOrderForm(userId, id);
 
-  var body = document.getElementById("orderInfo");
+  var body = document.getElementById("order");
   body.append(
     userInfo,
     backToOrdersButton,

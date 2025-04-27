@@ -1,12 +1,12 @@
-import getPhone from "./services/getPhone.js";
-import getOrderId from "./services/getOrderId.js";
-import getUserInfo from "./services/getUserInfo.js";
-import getOrderDate from "./services/getOrderDate.js";
-import createXlsxFileLink from "./services/createXlsxFileLink.js";
-import createDownloadFileLink from "./services/createDownloadFileLink.js";
-import createTableHeadForOrder from "./services/createTableHeadForOrder.js";
-import createBackToOrdersButton from "./services/createBackToOrdersButton.js";
-import getOrderStatusDescription from "./services/getOrderStatusDescription.js";
+import getPhone from "../services/getPhone.js";
+import getOrderId from "../services/getOrderId.js";
+import getUserInfo from "../services/getUserInfo.js";
+import getOrderDate from "../services/getOrderDate.js";
+import createXlsxFileLink from "../services/createXlsxFileLink.js";
+import createDownloadFileLink from "../services/createDownloadFileLink.js";
+import createTableHeadForOrder from "../services/createTableHeadForOrder.js";
+import createBackToOrdersButton from "../services/createBackToOrdersButton.js";
+import getOrderStatusDescription from "../services/getOrderStatusDescription.js";
 
 var rowForMultiple = async (order) => {
   var { userId, id, orderStatus, phone, date } = order;
@@ -16,7 +16,7 @@ var rowForMultiple = async (order) => {
   tr.append(
     await getOrderId(id),
     await getOrderDate(date),
-    await createXlsxFileLink(userId, id),
+    await createXlsxFileLink(userId, id, "user"),
     await getPhone(phone),
     await getOrderStatusDescription(orderStatus),
     await createDownloadFileLink(userId, id)

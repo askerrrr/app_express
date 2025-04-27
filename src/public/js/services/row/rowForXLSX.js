@@ -43,7 +43,7 @@ var rowForXLSX = async (data, userId, orderId) => {
 
   var backToOrderButton = await createBackToOrderButton(userId, orderId);
 
-  var body = document.getElementById("body");
+  var body = document.getElementById("xlsx");
 
   body.append(backToOrderButton, table);
 

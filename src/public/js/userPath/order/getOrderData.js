@@ -1,5 +1,5 @@
-import rowForSingle from "../../services/row/rowForSingle.js";
-import rowForMultiple from "../../services/row/rowForMultipleForUser.js";
+import rowForSingle from "../../services/row/userRow/rowForSingle.js";
+import rowForMultiple from "../../services/row/userRow/rowForMultiple.js";
 
 var getOrderInfoForUser = async () => {
   var pathParts = window.location.pathname.split("/");
@@ -23,9 +23,9 @@ var getOrderInfoForUser = async () => {
       return await rowForSingle(order);
     } else if (order.type == "multiple") {
       return await rowForMultiple(order);
-    } else {
-      return;
     }
+
+    return;
   } catch (err) {
     console.log(err);
     alert("error: ", err);
@@ -33,4 +33,4 @@ var getOrderInfoForUser = async () => {
   }
 };
 
-getOrderInfoForUser();
+getOrderInfoForUser().catch((err) => console.log(err));

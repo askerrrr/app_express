@@ -1,4 +1,4 @@
-var createTableHeadToXLSX = () => {
+var createTableHeadToXLSX = (role) => {
   var img = document.createElement("th");
   img.append("Фото");
 
@@ -30,6 +30,22 @@ var createTableHeadToXLSX = () => {
   editItemId.append("Редактировать ID предмета");
 
   var thead = document.createElement("thead");
+
+  if (role == "user") {
+    thead.append(
+      img,
+      url,
+      qty,
+      size,
+      itemPrice,
+      totalSum,
+      purchasedStatus,
+      deliveryStatus,
+      itemId
+    );
+
+    return thead;
+  }
 
   thead.append(
     img,
