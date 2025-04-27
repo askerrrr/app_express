@@ -4,11 +4,11 @@ var createUser = async (
   collection,
   { userId, passwd, firstName, userName }
 ) => {
-  var hashedPasswd = await argon2.hash(passwd);
+  var passwd = await argon2.hash(passwd);
 
   var user = await collection.insertOne({
     userId,
-    hashedPasswd,
+    passwd,
     firstName,
     userName,
     orders: [],
