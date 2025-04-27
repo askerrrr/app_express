@@ -1,4 +1,4 @@
-import deleteOrder from "../../deleteOrder.js";
+import deleteOrder from "../../adminPath/order/deleteOrder.js";
 import showAlertByHttpStatus from "./showAlertByHttpStatus.js";
 
 var createDeleteOrderForm = async (userId, orderId) => {

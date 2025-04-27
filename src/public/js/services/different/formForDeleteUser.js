@@ -1,4 +1,4 @@
-import deleteUser from "../../deleteUser.js";
+import deleteUser from "../../adminPath/orderList/deleteUser.js";
 import showAlertByHttpStatus from "./showAlertByHttpStatus.js";
 
 var createDeleteUserForm = async (userId) => {

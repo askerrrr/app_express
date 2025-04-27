@@ -10,8 +10,12 @@ var getIndexHTML = async (req, res) => {
     var users = await getAll();
 
     return users?.length
-      ? res.sendFile(join(__dirname, "../../../../public/html/index.html"))
-      : res.sendFile(join(__dirname, "../../../../public/html/noUsers.html"));
+      ? res.sendFile(
+          join(__dirname, "../../../../public/html/adminPath/root/index.html")
+        )
+      : res.sendFile(
+          join(__dirname, "../../../../public/html/adminPath/root/noUsers.html")
+        );
   } catch (err) {
     logger.error({ place: "getting root file", err });
     res.status(500);

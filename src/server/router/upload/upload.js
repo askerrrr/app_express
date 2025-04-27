@@ -18,7 +18,9 @@ var router = Router();
 var __dirname = dirname(fileURLToPath(import.meta.url));
 
 router.get("/", async (req, res) => {
-  return res.sendFile(join(__dirname, "../../../public/html/upload.html"));
+  return res.sendFile(
+    join(__dirname, "../../../public/html/adminPath/uploadFile/upload.html")
+  );
 });
 
 router.post("/", upload.single("media"), async (req, res) => {

@@ -6,7 +6,9 @@ var __dirname = dirname(fileURLToPath(import.meta.url));
 
 var getSheetHTML = async (_, res) => {
   try {
-    return res.sendFile(join(__dirname, "../../../../public/html/sheet.html"));
+    return res.sendFile(
+      join(__dirname, "../../../../public/html/adminPath/xlsx/sheet.html")
+    );
   } catch (err) {
     logger.error({ place: "getting xlsx file", userId, err });
     return res.status(500);

@@ -8,7 +8,7 @@ var __dirname = dirname(fileURLToPath(import.meta.url));
 var getOrderHTML = async (_, res) => {
   try {
     return res.sendFile(
-      join(__dirname, "../../../../public/html/userOrder.html")
+      join(__dirname, "../../../../public/html/adminPath/order/orderData.html")
     );
   } catch (err) {
     logger.error({ location: "getting order file", userId, err });

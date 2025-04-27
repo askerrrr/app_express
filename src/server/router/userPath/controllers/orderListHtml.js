@@ -4,7 +4,10 @@ var __dirname = dirname(fileURLToPath(import.meta.url));
 
 var orderListHtml = async (req, res) =>
   res.sendFile(
-    join(__dirname, "../../../../public/html/activeOrdersForUser.html")
+    join(
+      __dirname,
+      "../../../../public/html/userPath/orderList/activeOrders.html"
+    )
   );
 
 export default orderListHtml;

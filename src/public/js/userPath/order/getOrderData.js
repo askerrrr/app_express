@@ -1,5 +1,5 @@
-import rowForSingle from "./services/row/rowForSingle.js";
-import rowForMultiple from "./services/row/rowForMultipleForUser.js";
+import rowForSingle from "../../services/row/rowForSingle.js";
+import rowForMultiple from "../../services/row/rowForMultipleForUser.js";
 
 var getOrderInfoForUser = async () => {
   var pathParts = window.location.pathname.split("/");

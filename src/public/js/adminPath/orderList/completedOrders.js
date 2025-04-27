@@ -1,4 +1,4 @@
-import rowForCompletedOrders from "./services/row/rowForCompletedOrders.js";
+import rowForCompletedOrders from "../../services/row/rowForCompletedOrders.js";
 
 var getoCompletedOrders = async () => {
   var pathParts = window.location.pathname.split("/");

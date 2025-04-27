@@ -1,10 +1,10 @@
-import rowForListOfActiveOrders from "./services/row/rowForListOfActiveOrders.js";
+import orderListForUser from "../../services/row/orderListForUser.js";
 
-var getOrderList = async () => {
+var getOrderListForUser = async () => {
   var pathParts = window.location.pathname.split("/");
   var userId = pathParts.at(-1);
 
-  var url = "/orderinfo/api/orderlist/" + userId;
+  var url = "/user/orderlist-api/" + userId;
 
   var response = await fetch(url);
 
@@ -16,7 +16,7 @@ var getOrderList = async () => {
 
   var orders = await response.json();
 
-  await rowForListOfActiveOrders(orders);
+  await orderListForUser(orders);
 };
 
-getOrderList().catch((err) => alert("error: ", err));
+getOrderListForUser();

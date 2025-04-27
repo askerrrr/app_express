@@ -17,15 +17,21 @@ var getHTMLFileForOrderList = async (req, res) => {
 
     if (activeOrders?.length) {
       return res.sendFile(
-        join(__dirname, "../../../../public/html/activeOrders.html")
+        join(
+          __dirname,
+          "../../../../public/html/adminPath/orderList/activeOrders.html"
+        )
       );
     } else if (completedOrders?.length) {
       return res.sendFile(
-        join(__dirname, "../../../../public/html/completedOrders.html")
+        join(
+          __dirname,
+          "../../../../public/html/adminPath/orderList/completedOrders.html"
+        )
       );
     } else {
       return res.sendFile(
-        join(__dirname, "../../../../public/html/noOrders.html")
+        join(__dirname, "../../../../public/html/adminPath/noOrders.html")
       );
     }
   } catch (err) {

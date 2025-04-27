@@ -1,4 +1,4 @@
-import rowForXLSX from "./services/row/rowForXLSX.js";
+import rowForXLSX from "../../services/row/rowForXLSX.js";
 
 var getXlsxDataInTable = async () => {
   try {

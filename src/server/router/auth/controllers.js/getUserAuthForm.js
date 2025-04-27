@@ -8,7 +8,7 @@ var __dirname = dirname(fileURLToPath(import.meta.url));
 var getUserAuthForm = async (_, res) => {
   try {
     return res.sendFile(
-      join(__dirname, "../../../../public/html/userAuthForm.html")
+      join(__dirname, "../../../../public/html/userPath/auth/authForm.html")
     );
   } catch (err) {
     logger.error({ place: "getting auth file", userId, err });
