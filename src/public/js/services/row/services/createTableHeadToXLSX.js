@@ -3,7 +3,7 @@ var createTableHeadToXLSX = (role) => {
   img.append("Фото");
 
   var url = document.createElement("th");
-  url.append("Перейти по ссылке");
+  url.append("Ссылка");
 
   var qty = document.createElement("th");
   qty.append("Количество");
@@ -38,7 +38,6 @@ var createTableHeadToXLSX = (role) => {
       qty,
       size,
       itemPrice,
-      totalSum,
       purchasedStatus,
       deliveryStatus,
       itemId

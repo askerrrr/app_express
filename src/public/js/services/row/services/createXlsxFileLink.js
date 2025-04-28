@@ -11,9 +11,9 @@ var createXlsxFileLink = async (userId, orderId, role) => {
 
     if (role == "user") {
       requestAddress = "/user/check/" + userId + "/" + orderId;
+    } else {
+      requestAddress = "/xlsx/check/" + userId + "/" + orderId;
     }
-
-    requestAddress = "/xlsx/check/" + userId + "/" + orderId;
 
     var fileIsExists = await checkFileExists(requestAddress);
 

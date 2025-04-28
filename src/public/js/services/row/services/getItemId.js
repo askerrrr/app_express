@@ -2,7 +2,11 @@ var getItemId = async (itemId) => {
   var td = document.createElement("td");
   td.id = itemId ?? "";
 
-  td.append(itemId ?? "");
+  if (itemId.length) {
+    td.append(itemId);
+  } else {
+    td.append("Пусто");
+  }
 
   return td;
 };
