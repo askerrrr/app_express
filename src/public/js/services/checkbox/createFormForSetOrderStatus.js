@@ -1,7 +1,8 @@
 import sendOrderStatus from "./sendOrderStatus.js";
+import getPurchasedStatuses from "./getPurchasedStatuses.js";
 
-var createFormForSetOrderStatus = async (userId, orderId) => {
-  return document
+var createFormForSetOrderStatus = async (userId, orderId) =>
+  document
     .getElementById("submit-order-status")
     .addEventListener("click", async (e) => {
       e.preventDefault();
@@ -14,6 +15,26 @@ var createFormForSetOrderStatus = async (userId, orderId) => {
       if (!checkBox) {
         alert("Вы ничего не выбрали");
         return;
+      }
+
+      var ok = confirm("Изменить статус заказа?");
+
+      if (!ok) {
+        return;
+      }
+
+      if (checkBox.value == "purchased") {
+        var isAllItemsIsPurchased = await getPurchasedStatuses(userId, orderId);
+
+        if (!isAllItemsIsPurchased) {
+          alert("Нельзя изменить статус выкупа, не все товары еще выпуплены");
+          fieldset?.remove();
+          window.dialog.close();
+          document.getElementById("submit-order-status").disabled = false;
+          btn.disabled = false;
+          window.location.reload();
+          return;
+        }
       }
 
       var idOfMarkedCheckBox = checkBox.id;
@@ -45,6 +66,5 @@ var createFormForSetOrderStatus = async (userId, orderId) => {
         window.location.reload();
       }
     });
-};
 
 export default createFormForSetOrderStatus;
