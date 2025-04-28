@@ -1,11 +1,21 @@
 import allCheckboxesAreSelected from "./allCheckboxesAreSelected.js";
 import getLastUnmarkedCheckboxID from "./getLastUnmarkedCheckboxID.js";
 
+var sendStatus = async (userId, orderId, item) => {
+  var response = await fetch("/purchasedstatus", {
+    method: "PATCH",
+    body: JSON.stringify({ userId, orderId, item }),
+    headers: { "Content-Type": "application/json" },
+  });
+
+  return response.status == 200;
+};
+
 const obj = {};
 
 var sendPurchasedStatus = async (userId, orderId, item) => {
   var result = await getLastUnmarkedCheckboxID("input[name=purchased-status]");
-
+  console.log(result);
   if (result) {
     obj.lastUnmarkedCheckboxID = result;
   }
@@ -18,13 +28,9 @@ var sendPurchasedStatus = async (userId, orderId, item) => {
     var isConfirmed = confirm("Все товары выкуплены.\nИзменить статус заказа?");
 
     if (isConfirmed) {
-      var response = await fetch("/purchasedstatus", {
-        method: "PATCH",
-        body: JSON.stringify({ userId, orderId, item }),
-        headers: { "Content-Type": "application/json" },
-      });
+      var successResponse = await sendStatus(userId, orderId, item);
 
-      if (response.status !== 200) {
+      if (!successResponse) {
         alert(
           "Ошибка при обновлении статуса выкупа\nили отправке новово статуса заказчику"
         );
@@ -34,22 +40,18 @@ var sendPurchasedStatus = async (userId, orderId, item) => {
       delete obj?.lastUnmarkedCheckboxID;
 
       return alert("Статус заказа именен");
-    } else {
-      return obj?.lastUnmarkedCheckboxID
-        ? (document.getElementById(obj.lastUnmarkedCheckboxID).checked = false)
-        : alert("Не удалось найти последний неотмеченный чекбокс");
     }
-  } else {
-    var response = await fetch("/purchasedstatus", {
-      method: "PATCH",
-      body: JSON.stringify({ userId, orderId, item }),
-      headers: { "Content-Type": "application/json" },
-    });
 
-    if (response.status !== 200) {
-      alert("Ошибка при обновлении статуса выкупа");
-      return;
-    }
+    console.log(obj.lastUnmarkedCheckboxID);
+    return obj?.lastUnmarkedCheckboxID
+      ? (document.getElementById(obj.lastUnmarkedCheckboxID).checked = false)
+      : alert("Не удалось найти последний неотмеченный чекбокс");
+  }
+
+  var successResponse = await sendStatus(userId, orderId, item);
+  if (!successResponse) {
+    alert("Ошибка при обновлении статуса выкупа");
+    return;
   }
 };
 
