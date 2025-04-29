@@ -7,7 +7,7 @@ var checkFileExist = async (req, res) => {
   var { getOrderFilePath } = req.app.locals.userCollectionServices();
 
   try {
-    var filePath = await getOrderFilePath(userId, orderId);
+    var filePath = "C:\\Users\\Adm\\Desktop\\264596758090.xlsx"; //await getOrderFilePath(userId, orderId);
 
     var fileIsExists = await checkFileExists(filePath);
 

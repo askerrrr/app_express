@@ -15,7 +15,7 @@ const obj = {};
 
 var sendPurchasedStatus = async (userId, orderId, item) => {
   var result = await getLastUnmarkedCheckboxID("input[name=purchased-status]");
-  console.log(result);
+
   if (result) {
     obj.lastUnmarkedCheckboxID = result;
   }
@@ -42,13 +42,13 @@ var sendPurchasedStatus = async (userId, orderId, item) => {
       return alert("Статус заказа именен");
     }
 
-    console.log(obj.lastUnmarkedCheckboxID);
     return obj?.lastUnmarkedCheckboxID
-      ? (document.getElementById(obj.lastUnmarkedCheckboxID).checked = false)
+      ? (document.getElementById(obj?.lastUnmarkedCheckboxID).checked = false)
       : alert("Не удалось найти последний неотмеченный чекбокс");
   }
 
   var successResponse = await sendStatus(userId, orderId, item);
+
   if (!successResponse) {
     alert("Ошибка при обновлении статуса выкупа");
     return;

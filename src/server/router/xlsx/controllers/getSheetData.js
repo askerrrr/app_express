@@ -9,7 +9,7 @@ var getSheetData = async (req, res) => {
   var { getItemsData } = req.app.locals.itemCollectionServices();
 
   try {
-    var filePath = await getOrderFilePath(userId, orderId);
+    var filePath = "C:\\Users\\Adm\\Desktop\\264596758090.xlsx"; //await getOrderFilePath(userId, orderId);
 
     var imageData = await getImageFromXLSX(filePath, userId);
 
