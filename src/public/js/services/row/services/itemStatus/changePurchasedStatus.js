@@ -1,6 +1,6 @@
-import createCheckbox from "./createCheckbox.js";
-import getOrderStatus from "./getOrderStatus.js";
-import sendPurchasedStatus from "./itemStatus/sendPurchasedStatus.js";
+import createCheckbox from "../createCheckbox.js";
+import getOrderStatus from "../getOrderStatus.js";
+import sendPurchasedStatus from "./sendPurchasedStatus.js";
 
 var changePurchasedStatus = async (userId, orderId, item) => {
   var { purchased } = item;

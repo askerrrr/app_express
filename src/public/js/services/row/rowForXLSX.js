@@ -6,10 +6,10 @@ import getUrlFromXLSX from "./services/getUrlFromXLSX.js";
 import getSizeFromXLSX from "./services/getSizeFromXLSX.js";
 import getImageFromXLSX from "./services/getImageFromXLSX.js";
 import getQuantityFromXLSX from "./services/getQuantityFromXLSX.js";
-import changeDeliveryStatus from "./services/changeDeliveryStatus.js";
-import changePurchasedStatus from "./services/changePurchasedStatus.js";
 import createTableHeadToXLSX from "./services/createTableHeadToXLSX.js";
 import createBackToOrderButton from "./services/createBackToOrderButton.js";
+import changeDeliveryStatus from "./services/itemStatus/changeDeliveryStatus.js";
+import changePurchasedStatus from "./services/itemStatus/changePurchasedStatus.js";
 
 var index = 0;
 
