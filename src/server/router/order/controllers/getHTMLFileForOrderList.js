@@ -31,7 +31,7 @@ var getHTMLFileForOrderList = async (req, res) => {
       );
     } else {
       return res.sendFile(
-        join(__dirname, "../../../../public/html/adminPath/noOrders.html")
+        join(__dirname, "../../../../public/html/adminPath/orderList/noOrders.html")
       );
     }
   } catch (err) {
