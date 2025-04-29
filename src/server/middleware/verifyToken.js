@@ -10,7 +10,9 @@ var verifyToken = async (req, res, next) => {
     var token = req.cookies?.token;
 
     if (!token) {
-      return res.sendFile(join(__dirname, "../../public/html/errorPage.html"));
+      return res.sendFile(
+        join(__dirname, "../../public/html/adminPath/auth/authForm.html")
+      );
     }
 
     var user = JWT.verify(token, env.secretKey);
