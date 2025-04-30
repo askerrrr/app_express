@@ -1,10 +1,14 @@
 var createOrder = async (collection, order) => {
-  var result = await collection.updateOne(
-    { userId: userId },
-    { $push: { orders: { ...order } } }
-  );
+  try {
+    var result = await collection.updateOne(
+      { userId: order.userId },
+      { $push: { orders: { ...order } } }
+    );
 
-  return result.acknowledged;
+    return result.acknowledged;
+  } catch (err) {
+    throw err;
+  }
 };
 
 export default createOrder;

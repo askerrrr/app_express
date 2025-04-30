@@ -28,9 +28,9 @@ var userCollectionServices = () => {
     getOrderType: (userId, orderId) =>
       getOrderType(userCollection, userId, orderId),
 
-    createUser: (userData) => createUser(userCollection, userData),
+    createUser: (data) => createUser(userCollection, data),
 
-    createOrder: (orderData) => createOrder(userCollection, orderData),
+    createOrder: (data) => createOrder(userCollection, data),
 
     getOrderStatus: (userId, orderId) =>
       getOrderStatus(userCollection, userId, orderId),

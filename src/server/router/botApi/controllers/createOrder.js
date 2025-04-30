@@ -39,7 +39,10 @@ var createOrder = async (req, res) => {
 
     if (!user) {
       var userIsCreated = await userCollection.createUser(order);
-      var itemCollection = await itemCollection.createItemCollection(order);
+
+      var itemCollectionIsCreated = await itemCollection.createItemCollection(
+        order
+      );
 
       if (!userIsCreated || !itemCollectionIsCreated) {
         await deleteUserData();
