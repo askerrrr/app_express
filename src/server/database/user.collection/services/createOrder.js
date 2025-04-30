@@ -6,7 +6,8 @@ var createOrder = async (collection, order) => {
     );
 
     return result.acknowledged;
-  } catch (err) {
+  } catch {
+    var err = new Error("error creating order");
     throw err;
   }
 };
