@@ -3,17 +3,15 @@ var createItem = ({ url, price, qty, size }) => {
 
   for (var i = 0; i < url.length; i++) {
     items.push({
-      item: {
-        id: "",
-        price: price[i],
-        purchased: 0,
-        delivered: 0,
-        description: {
-          qty: qty[i],
-          size: size[i],
-        },
-        url: url[i],
+      id: "",
+      price: price[i],
+      purchased: 0,
+      delivered: 0,
+      description: {
+        qty: qty[i],
+        size: size[i],
       },
+      url: url[i],
     });
   }
 
@@ -26,7 +24,7 @@ var addItems = async (collection, userId, orderId, xlsxData) => {
   var totalSum = xlsxData.totalSum[0];
 
   var result = await collection.updateOne(
-    { userId: userId, "orders.id": orderId },
+    { userId, "orders.id": orderId },
     {
       $set: {
         "orders.$.totalSum": totalSum,
