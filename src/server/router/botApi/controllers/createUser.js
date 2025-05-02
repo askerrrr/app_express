@@ -5,6 +5,10 @@ var createUser = async (req, res) => {
   var authHeader = req.headers?.authorization;
 
   try {
+    if (!authHeader) {
+      return res.sendStatus(401);
+    }
+
     var validAuthHeader = await validateAuthHeader(authHeader);
 
     if (!validAuthHeader) {
