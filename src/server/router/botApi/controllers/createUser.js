@@ -1,8 +1,9 @@
-import logger from "../../../logger.js";
 import validateAuthHeader from "../services/validateAuthHeader.js";
 
 var createUser = async (req, res) => {
   var authHeader = req.headers?.authorization;
+
+  var userData = req.body;
 
   try {
     if (!authHeader) {
@@ -14,8 +15,6 @@ var createUser = async (req, res) => {
     if (!validAuthHeader) {
       return res.sendStatus(401);
     }
-
-    var userData = req.body;
 
     var itemCollection = req.app.locals.itemCollectionServices();
 
@@ -40,13 +39,14 @@ var createUser = async (req, res) => {
     }
 
     return res.sendStatus(409);
-  } catch (err) {
-    if (err.name === "JsonWebTokenError") {
+  } catch (e) {
+    if (e.name === "JsonWebTokenError") {
       return res.sendStatus(401);
     }
 
-    logger.error({ place: "create user", err });
-    return res.status(500);
+    e.location = "createUser";
+
+    throw e;
   }
 };
 

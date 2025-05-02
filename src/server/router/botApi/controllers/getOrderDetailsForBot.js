@@ -1,4 +1,3 @@
-import logger from "../../../logger.js";
 import validateAuthHeader from "../services/validateAuthHeader.js";
 import getOrderDetailsForBot from "../services/getOrderDetailsForBot.js";
 
@@ -31,6 +30,7 @@ var getOrderDetails = async (req, res) => {
     var activeOrders = orderDetailsForBot.filter(
       (order) => order.orderStatus.value !== "order-is-completed"
     );
+
     var completedOrders = orderDetailsForBot.filter(
       (order) => order.orderStatus.value === "order-is-completed"
     );
@@ -38,9 +38,10 @@ var getOrderDetails = async (req, res) => {
     return orders.length
       ? res.status(200).json({ activeOrders, completedOrders })
       : res.sendStatus(404);
-  } catch (err) {
-    logger.error({ place: "sending orders to the bot", userId, err });
-    return res.status(500);
+  } catch (e) {
+    e.location = "getOrderDetails";
+
+    throw e;
   }
 };
 

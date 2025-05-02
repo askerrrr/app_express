@@ -44,6 +44,7 @@ import { deliveryStatus } from "./router/itemStatus/deliveryStatus.js";
 import { purchasedStatus } from "./router/itemStatus/purchasedStatus.js";
 
 import { userPath } from "./router/userPath/index.js";
+import errorHandler from "./middleware/errorHandler/index.js";
 
 app.disable("x-powered-by");
 
@@ -76,3 +77,5 @@ app.use("/status", orderStatus);
 
 app.use("/deliverystatus", deliveryStatus);
 app.use("/purchasedstatus", purchasedStatus);
+
+app.use(errorHandler);

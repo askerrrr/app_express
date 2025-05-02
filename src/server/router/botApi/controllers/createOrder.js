@@ -1,4 +1,3 @@
-import logger from "../../../logger.js";
 import downloadOrderFile from "../services/downloadOrderFile.js";
 import validateAuthHeader from "../services/validateAuthHeader.js";
 import getDataFromXLSX from "../../xlsx/services/getDataFromXLSX.js";
@@ -89,8 +88,9 @@ var createOrder = async (req, res) => {
       return res.sendStatus(401);
     }
 
-    logger.error({ place: "create order", userId, err });
-    return res.status(500);
+    e.location = "createOrder";
+
+    throw e;
   }
 };
 
