@@ -4,10 +4,11 @@ import { getOrderListDto } from "../../order/services/getDto.js";
 var ordersList = async (req, res) => {
   var { userId } = req.params;
 
-  var { getUser } = req.app.locals.userCollectionServices();
+  var userCollection = req.app.locals.userCollectionServices();
 
   try {
-    var user = await getUser(userId);
+    var user = await userCollection.getUserById(userId);
+
     var orderListDto = await getOrderListDto(user);
 
     return user ? res.json(orderListDto) : res.sendStatus(404);

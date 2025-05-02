@@ -38,7 +38,7 @@ var createOrder = async (req, res) => {
 
     var { id, file, type, userId } = order;
 
-    var user = await userCollection.getUser(userId);
+    var user = await userCollection.getUserById(userId);
 
     if (!user) {
       var userIsCreated = await userCollection.createUser(order);

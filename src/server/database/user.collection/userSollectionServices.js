@@ -1,5 +1,5 @@
 import getAll from "./services/getAll.js";
-import getUser from "./services/getUser.js";
+import getUserById from "./services/getUserById.js";
 import getOrder from "./services/getOrder.js";
 import getOrders from "./services/getOrders.js";
 import getOrderType from "./services/getOrderType.js";
@@ -19,7 +19,7 @@ var userCollectionServices = () => {
   return {
     getAll: () => getAll(userCollection),
 
-    getUser: (userId) => getUser(userCollection, userId),
+    getUserById: (userId) => getUserById(userCollection, userId),
 
     getOrder: (userId, orderId) => getOrder(userCollection, userId, orderId),
 

@@ -3,10 +3,10 @@ import logger from "../../../logger.js";
 var getOrderData = async (req, res) => {
   var { userId, orderId } = req.params;
 
-  var { getUser } = req.app.locals.userCollectionServices();
+  var userCollection = req.app.locals.userCollectionServices();
 
   try {
-    var user = await getUser(userId);
+    var user = await userCollection.getUserById(userId);
 
     var order = user.orders.find((order) => order.id === orderId);
 

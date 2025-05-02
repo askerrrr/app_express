@@ -20,7 +20,7 @@ var createUser = async (req, res) => {
 
     var userCollection = req.app.locals.userCollectionServices();
 
-    var user = await userCollection.getUser(userData.userId);
+    var user = await userCollection.getUserById(userData.userId);
 
     if (!user) {
       var userIsCreated = await userCollection.createUser(userData);
