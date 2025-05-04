@@ -49,8 +49,6 @@ var createFormForSetOrderStatus = async (userId, orderId) =>
       );
 
       if (!successfullResponse) {
-        alert("Ошибка при обновлении статуса. Попробуйте еще раз.");
-
         fieldset?.remove();
         window.dialog.close();
         document.getElementById("submit-order-status").disabled = false;

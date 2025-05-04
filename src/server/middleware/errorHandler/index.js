@@ -7,9 +7,9 @@ var __dirname = dirname(fileURLToPath(import.meta.url));
 var errorPagePath = join(__dirname, "../../public/html/errorPage.html");
 
 var errorHandler = async (e, req, res, next) => {
-  if (e instanceof customErrors[e]) {
-    console.log(customErrors[e]);
-
+  if (customErrors.some((err) => e instanceof err)) {
+    return res.sendStatus(500);
+  } else {
     return res.sendStatus(500);
   }
 };

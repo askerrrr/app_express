@@ -7,7 +7,8 @@ var updatePurchasedStatus = async (req, res, next) => {
 
   var { getItemsData, updateItemStatus } =
     req.app.locals.itemCollectionServices();
-  var { getOrderStatus, updateOrderStatusFromDB } =
+
+  var { getOrderStatus, updateOrderStatus } =
     req.app.locals.userCollectionServices();
 
   try {
@@ -30,7 +31,7 @@ var updatePurchasedStatus = async (req, res, next) => {
       if (orderStatus.value == "in-processing") {
         var newOrderStatus = { id: 2, value: "purchased" };
 
-        var orderStatusIsUpdated = await updateOrderStatusFromDB(
+        var orderStatusIsUpdated = await updateOrderStatus(
           userId,
           orderId,
           newOrderStatus

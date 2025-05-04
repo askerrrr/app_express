@@ -67,12 +67,12 @@ export {
   ReadableStreamError,
 };
 
-var customErrors = {
+var customErrors = [
   NetworkError,
   BotServerError,
   DatabaseError,
   DatabaseConnectionError,
   ReadableStreamError,
-};
+];
 
 export default customErrors;
