@@ -1,3 +1,5 @@
+import { DatabaseError } from "../../../customError/index.js";
+
 var createUser = async (collection, { userId, firstName, userName }) => {
   try {
     var user = await collection.insertOne({
@@ -10,9 +12,8 @@ var createUser = async (collection, { userId, firstName, userName }) => {
     var result = await user.save();
 
     return result === user;
-  } catch {
-    var err = new Error("error creating user");
-    throw err;
+  } catch (e) {
+    throw new DatabaseError("createUser", e, userId);
   }
 };
 

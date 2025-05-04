@@ -1,18 +1,16 @@
 import { join } from "node:path";
 import { dirname } from "node:path";
-import logger from "../../../logger.js";
 import { fileURLToPath } from "node:url";
 
 var __dirname = dirname(fileURLToPath(import.meta.url));
 
-var getUserAuthForm = async (_, res) => {
+var getUserAuthForm = async (req, res, next) => {
   try {
     return res.sendFile(
       join(__dirname, "../../../../public/html/userPath/auth/authForm.html")
     );
-  } catch (err) {
-    logger.error({ place: "getting auth file", userId, err });
-    return res.status(500);
+  } catch (e) {
+    next(e);
   }
 };
 

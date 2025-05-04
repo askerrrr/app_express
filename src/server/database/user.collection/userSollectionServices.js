@@ -9,7 +9,7 @@ import createOrder from "./services/createOrder.js";
 import getActiveOrders from "./services/getActiveOrders.js";
 import getOrderFilePath from "./services/getOrderFilePath.js";
 import getCompletedOrders from "./services/getCompletedOrders.js";
-import updateOrderStatusFromDB from "./services/updateOrderStatus.js";
+import updateOrderStatus from "./services/updateOrderStatus.js";
 import deleteUser from "./services/deleteUser.js";
 import deleteOrder from "./services/deleteOrder.js";
 
@@ -42,8 +42,8 @@ var userCollectionServices = () => {
 
     getCompletedOrders: (userId) => getCompletedOrders(userCollection, userId),
 
-    updateOrderStatusFromDB: (userId, orderId, orderStatus) =>
-      updateOrderStatusFromDB(userCollection, userId, orderId, orderStatus),
+    updateOrderStatus: (userId, orderId, orderStatus) =>
+      updateOrderStatus(userCollection, userId, orderId, orderStatus),
 
     deleteUser: (userId) => deleteUser(userCollection, userId),
 

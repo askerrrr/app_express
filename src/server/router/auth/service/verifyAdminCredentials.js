@@ -8,9 +8,7 @@ var verifyAdminCredentials = async (adminLogin, adminPasswd, collection) => {
     var validPasswd = await argon2.verify(passwd, adminPasswd);
 
     return validLogin && validPasswd;
-  } catch (err) {
-    console.log(err);
-  }
+  } catch (err) {}
 };
 
 export default verifyAdminCredentials;

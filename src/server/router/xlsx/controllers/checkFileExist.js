@@ -1,7 +1,6 @@
-import logger from "../../../logger.js";
 import checkFileExists from "../services/checkFileExists.js";
 
-var checkFileExist = async (req, res) => {
+var checkFileExist = async (req, res, next) => {
   var { userId, orderId } = req.params;
 
   var { getOrderFilePath } = req.app.locals.userCollectionServices();
@@ -12,9 +11,8 @@ var checkFileExist = async (req, res) => {
     var fileIsExists = await checkFileExists(filePath);
 
     return res.json({ fileIsExists });
-  } catch (err) {
-    logger.error({ place: "checking order file exists", userId, err });
-    return res.status(500);
+  } catch (e) {
+    next(e);
   }
 };
 

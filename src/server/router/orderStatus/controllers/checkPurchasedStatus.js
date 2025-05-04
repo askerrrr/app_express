@@ -1,13 +1,17 @@
-var checkPurchasedStatus = async (req, res) => {
-  var { userId, orderId } = req.params;
+var checkPurchasedStatus = async (req, res, next) => {
+  try {
+    var { userId, orderId } = req.params;
 
-  var itemCollection = req.app.locals.itemCollectionServices();
+    var itemCollection = req.app.locals.itemCollectionServices();
 
-  var { items } = await itemCollection.getItemsData(userId, orderId);
+    var { items } = await itemCollection.getItemsData(userId, orderId);
 
-  var isAllItemsIsPurchased = items.every((item) => item.purchased == 1);
+    var isAllItemsIsPurchased = items.every((item) => item.purchased == 1);
 
-  return res.json({ isAllItemsIsPurchased });
+    return res.json({ isAllItemsIsPurchased });
+  } catch (e) {
+    next(e);
+  }
 };
 
 export default checkPurchasedStatus;

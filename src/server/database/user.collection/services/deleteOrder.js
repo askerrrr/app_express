@@ -1,3 +1,5 @@
+import { DatabaseError } from "../../../customError/index.js";
+
 var deleteOrder = async (collection, userId, orderId) => {
   try {
     var result = await collection.updateOne(
@@ -8,9 +10,8 @@ var deleteOrder = async (collection, userId, orderId) => {
     );
 
     return result.acknowledged;
-  } catch {
-    var err = new Error("error deleting user");
-    throw err;
+  } catch (e) {
+    throw new DatabaseError("deleteOrder", e, userId, orderId);
   }
 };
 

@@ -1,9 +1,4 @@
-var updateOrderStatusFromDB = async (
-  collection,
-  userId,
-  orderId,
-  orderStatus
-) => {
+var updateOrderStatus = async (collection, userId, orderId, orderStatus) => {
   var result = await collection.updateOne(
     { userId, "orders.id": orderId },
     {
@@ -14,4 +9,4 @@ var updateOrderStatusFromDB = async (
   return result.acknowledged;
 };
 
-export default updateOrderStatusFromDB;
+export default updateOrderStatus;

@@ -1,6 +1,4 @@
-import logger from "../../../logger.js";
-
-var getCompletedOrdersData = async (req, res) => {
+var getCompletedOrdersData = async (req, res, next) => {
   var { userId } = req.params;
 
   var { getCompletedOrders } = req.app.locals.userCollectionServices();
@@ -9,9 +7,8 @@ var getCompletedOrdersData = async (req, res) => {
     var completedOrders = await getCompletedOrders(userId);
 
     return res.json({ userId, completedOrders });
-  } catch (err) {
-    logger.error({ place: "getting completed order", userId, err });
-    return res.sendStatus(500);
+  } catch (e) {
+    next(e);
   }
 };
 

@@ -1,5 +1,6 @@
 import mongoose from "mongoose";
 import env from "../../env_var.js";
+import { DatabaseConnectionError } from "../../customError/index.js";
 
 var mongooseConnection = async () => {
   var userDB = mongoose.connect(
@@ -7,7 +8,7 @@ var mongooseConnection = async () => {
     env.mongoose_options
   );
 
-  userDB.then(() => console.log("mongoose is connected"));
+  userDB.then(() => console.info("mongoose is connected"));
 };
 
 mongoose.Promise = Promise;
@@ -21,14 +22,19 @@ mongoose.connection.on("disconnected", () =>
 await mongooseConnection();
 
 var checkState = (req, res, next) => {
-  if (mongoose.connection.readyState !== 1) {
-    var err = new Error("Database connection is not established");
-    err.status = 500;
-    console.log("err: ", err);
-    next(err);
-  }
+  try {
+    if (mongoose.connection.readyState !== 1) {
+      next(new DatabaseConnectionError());
+    }
 
-  next();
+    next();
+  } catch (e) {
+    if (e instanceof DatabaseConnectionError) {
+      next(e);
+    }
+
+    next(new DatabaseConnectionError(e.message));
+  }
 };
 
 export { checkState };

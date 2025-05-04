@@ -1,3 +1,5 @@
+import { DatabaseError } from "../../../customError/index.js";
+
 var createOrder = async (collection, order) => {
   try {
     var result = await collection.updateOne(
@@ -6,9 +8,8 @@ var createOrder = async (collection, order) => {
     );
 
     return result.acknowledged;
-  } catch {
-    var err = new Error("error creating order");
-    throw err;
+  } catch (e) {
+    throw new DatabaseError("createOrder", e, order.userId, order.id);
   }
 };
 

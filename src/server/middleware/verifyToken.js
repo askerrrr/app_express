@@ -22,9 +22,9 @@ var verifyToken = async (req, res, next) => {
     }
 
     return next();
-  } catch (err) {
+  } catch (e) {
     res.clearCookie("token");
-    return res.sendFile(join(__dirname, "../../public/html/errorPage.html"));
+    next(e);
   }
 };
 export default verifyToken;

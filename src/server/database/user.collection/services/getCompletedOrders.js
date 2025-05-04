@@ -1,11 +1,17 @@
+import { DatabaseError } from "../../../customError/index.js";
+
 var getCompletedOrders = async (collection, userId) => {
-  var { orders } = await collection.findOne({ userId }).exec();
+  try {
+    var { orders } = await collection.findOne({ userId }).exec();
 
-  var completedOrders = orders.filter(
-    (order) => order.orderStatus == "order-is-completed:6"
-  );
+    var completedOrders = orders.filter(
+      (order) => order.orderStatus == "order-is-completed:6"
+    );
 
-  return completedOrders;
+    return completedOrders;
+  } catch (e) {
+    throw new DatabaseError("getCompletedOrders", e, userId);
+  }
 };
 
 export default getCompletedOrders;

@@ -1,11 +1,12 @@
+import { DatabaseError } from "../../../customError/index.js";
+
 var deleteUser = async (collection, userId) => {
   try {
     var result = await collection.deleteOne({ userId });
 
     return result.acknowledged;
-  } catch {
-    var err = new Error("error deleting user");
-    throw err;
+  } catch (e) {
+    throw new DatabaseError("deleteUser", e, userId);
   }
 };
 

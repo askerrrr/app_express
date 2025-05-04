@@ -1,6 +1,6 @@
 import validateAuthHeader from "../services/validateAuthHeader.js";
 
-var createUser = async (req, res) => {
+var createUser = async (req, res, next) => {
   var authHeader = req.headers?.authorization;
 
   var userData = req.body;
@@ -46,7 +46,7 @@ var createUser = async (req, res) => {
 
     e.location = "createUser";
 
-    throw e;
+    next(e);
   }
 };
 

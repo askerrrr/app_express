@@ -17,14 +17,22 @@ var upload = multer({ storage: storage });
 var router = Router();
 var __dirname = dirname(fileURLToPath(import.meta.url));
 
-router.get("/", async (req, res) => {
-  return res.sendFile(
-    join(__dirname, "../../../public/html/adminPath/uploadFile/upload.html")
-  );
+router.get("/", async (req, res, next) => {
+  try {
+    return res.sendFile(
+      join(__dirname, "../../../public/html/adminPath/uploadFile/upload.html")
+    );
+  } catch (e) {
+    next(e);
+  }
 });
 
-router.post("/", upload.single("media"), async (req, res) => {
-  return res.send("Succesfull upload");
+router.post("/", upload.single("media"), async (req, res, next) => {
+  try {
+    return res.send("Succesfull upload");
+  } catch (e) {
+    next(e);
+  }
 });
 
 export { router as upload };

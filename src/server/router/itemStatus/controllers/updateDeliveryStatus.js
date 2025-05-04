@@ -1,9 +1,8 @@
-import logger from "../../../logger.js";
 import sendOrderStatus from "../services/sendOrderStatus.js";
 import updateItemInArray from "../services/updateItemInArray.js";
 import allItemsAreDelivered from "../services/allItemsAreDelivered.js";
 
-var updateDeliveryStatus = async (req, res) => {
+var updateDeliveryStatus = async (req, res, next) => {
   var { userId, orderId, item } = req.body;
 
   var { getItemsData, updateItemStatus } =
@@ -50,9 +49,8 @@ var updateDeliveryStatus = async (req, res) => {
     }
 
     return res.sendStatus(200);
-  } catch (err) {
-    logger.error({ place: "change delivery status", userId, err });
-    return res.status(500);
+  } catch (e) {
+    next(e);
   }
 };
 

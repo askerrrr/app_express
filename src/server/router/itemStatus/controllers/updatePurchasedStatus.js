@@ -1,9 +1,8 @@
-import logger from "../../../logger.js";
 import sendOrderStatus from "../services/sendOrderStatus.js";
 import updateItemInArray from "../services/updateItemInArray.js";
 import allItemsArePurchased from "../services/allItemsArePurchased.js";
 
-var updatePurchasedStatus = async (req, res) => {
+var updatePurchasedStatus = async (req, res, next) => {
   var { userId, orderId, item } = req.body;
 
   var { getItemsData, updateItemStatus } =
@@ -52,9 +51,8 @@ var updatePurchasedStatus = async (req, res) => {
     }
 
     return res.sendStatus(200);
-  } catch (err) {
-    logger.error({ place: "change purchased status", userId, err });
-    return res.status(500);
+  } catch (e) {
+    next(e);
   }
 };
 

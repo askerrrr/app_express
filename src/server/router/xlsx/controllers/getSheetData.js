@@ -1,8 +1,7 @@
-import logger from "../../../logger.js";
 import mergeData from "../services/mergeData.js";
 import getImageFromXLSX from "../services/getImageFromXLSX.js";
 
-var getSheetData = async (req, res) => {
+var getSheetData = async (req, res, next) => {
   var { userId, orderId } = req.params;
 
   var { getOrderFilePath } = req.app.locals.userCollectionServices();
@@ -18,9 +17,8 @@ var getSheetData = async (req, res) => {
     var sheetData = await mergeData(items, imageData);
 
     return res.json({ sheetData });
-  } catch (err) {
-    logger.error({ place: "getting xlsx data", userId, err });
-    return res.status(500);
+  } catch (e) {
+    next(e);
   }
 };
 

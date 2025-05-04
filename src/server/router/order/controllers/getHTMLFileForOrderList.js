@@ -1,11 +1,10 @@
 import { join } from "node:path";
 import { dirname } from "node:path";
-import logger from "../../../logger.js";
 import { fileURLToPath } from "node:url";
 
 var __dirname = dirname(fileURLToPath(import.meta.url));
 
-var getHTMLFileForOrderList = async (req, res) => {
+var getHTMLFileForOrderList = async (req, res, next) => {
   var { userId } = req.params;
 
   var { getActiveOrders, getCompletedOrders } =
@@ -31,12 +30,14 @@ var getHTMLFileForOrderList = async (req, res) => {
       );
     } else {
       return res.sendFile(
-        join(__dirname, "../../../../public/html/adminPath/orderList/noOrders.html")
+        join(
+          __dirname,
+          "../../../../public/html/adminPath/orderList/noOrders.html"
+        )
       );
     }
-  } catch (err) {
-    logger.error({ place: "getting orders", userId, err });
-    return res.status(500);
+  } catch (e) {
+    next(e);
   }
 };
 

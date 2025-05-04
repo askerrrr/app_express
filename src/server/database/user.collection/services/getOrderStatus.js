@@ -1,9 +1,15 @@
+import { DatabaseError } from "../../../customError/index.js";
+
 var getOrderStatus = async (collection, userId, orderId) => {
-  var { orders } = await collection.findOne({ userId }).exec();
+  try {
+    var { orders } = await collection.findOne({ userId }).exec();
 
-  var { orderStatus } = orders.find((order) => order.id == orderId);
+    var { orderStatus } = orders.find((order) => order.id == orderId);
 
-  return orderStatus;
+    return orderStatus;
+  } catch (e) {
+    throw new DatabaseError("getOrderStatus", e, userId, orderId);
+  }
 };
 
 export default getOrderStatus;

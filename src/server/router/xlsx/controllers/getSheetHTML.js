@@ -1,17 +1,15 @@
 import { fileURLToPath } from "url";
 import { dirname, join } from "path";
-import logger from "../../../logger.js";
 
 var __dirname = dirname(fileURLToPath(import.meta.url));
 
-var getSheetHTML = async (_, res) => {
+var getSheetHTML = async (_, res, next) => {
   try {
     return res.sendFile(
       join(__dirname, "../../../../public/html/adminPath/xlsx/sheet.html")
     );
-  } catch (err) {
-    logger.error({ place: "getting xlsx file", userId, err });
-    return res.status(500);
+  } catch (e) {
+    next(e);
   }
 };
 

@@ -1,9 +1,8 @@
 import JWT from "jsonwebtoken";
 import env from "../../../env_var.js";
-import logger from "../../../logger.js";
 import verifyUserCredentials from "../service/verifyUserCredentials.js";
 
-var checkUserCredentials = async (req, res) => {
+var checkUserCredentials = async (req, res, next) => {
   // var { login, passwd } = req.body;
 
   var collection = req.app.locals.userCollectionServices();
@@ -41,10 +40,8 @@ var checkUserCredentials = async (req, res) => {
         maxAge: 1000 * 60 * 60,
       })
       .json({ redirect: true });
-  } catch (err) {
-    console.log(err);
-    logger.error({ place: "checking user auth data", err });
-    res.status(500);
+  } catch (e) {
+    next(e);
   }
 };
 

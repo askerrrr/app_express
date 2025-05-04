@@ -1,6 +1,4 @@
-import logger from "../../../logger.js";
-
-var getOrderStatus = async (req, res) => {
+var getOrderStatus = async (req, res, next) => {
   var { userId, orderId } = req.params;
 
   var { getOrderStatus } = req.app.locals.userCollectionServices();
@@ -9,9 +7,8 @@ var getOrderStatus = async (req, res) => {
     var orderStatus = await getOrderStatus(userId, orderId);
 
     return res.json({ orderStatus });
-  } catch (err) {
-    logger.error({ place: "getting order status", userId, err });
-    return res.status(500);
+  } catch (e) {
+    next(e);
   }
 };
 

@@ -1,7 +1,7 @@
 import validateAuthHeader from "../services/validateAuthHeader.js";
 import getOrderDetailsForBot from "../services/getOrderDetailsForBot.js";
 
-var getOrderDetails = async (req, res) => {
+var getOrderDetails = async (req, res, next) => {
   var authHeader = req.headers?.authorization;
 
   try {
@@ -41,7 +41,7 @@ var getOrderDetails = async (req, res) => {
   } catch (e) {
     e.location = "getOrderDetails";
 
-    throw e;
+    next(e);
   }
 };
 

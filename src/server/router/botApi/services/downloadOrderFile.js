@@ -11,8 +11,8 @@ var downloadOrderFile = async (path, url) => {
     var successWrite = await writeFile(path, readableStream);
 
     return successWrite;
-  } catch (err) {
-    throw err;
+  } catch (e) {
+    throw e;
   }
 };
 

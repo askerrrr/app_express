@@ -3,7 +3,7 @@ import validateAuthHeader from "../services/validateAuthHeader.js";
 import getDataFromXLSX from "../../xlsx/services/getDataFromXLSX.js";
 import deleteOrderFile from "../../order/services/deleteOrderFile.js";
 
-var createOrder = async (req, res) => {
+var createOrder = async (req, res, next) => {
   var authHeader = req.headers?.authorization;
 
   try {
@@ -36,7 +36,7 @@ var createOrder = async (req, res) => {
 
     var order = req.body;
 
-    var { id, file, type, userId } = order;
+    var { id, userId } = order;
 
     var user = await userCollection.getUserById(userId);
 
@@ -52,7 +52,7 @@ var createOrder = async (req, res) => {
       }
     }
 
-    var { path, telegramApiFileUrl } = file;
+    var { path, telegramApiFileUrl } = order.file;
 
     var orderIsAdded = await userCollection.createOrder(order);
 
@@ -66,7 +66,7 @@ var createOrder = async (req, res) => {
       await deleteOrderData();
     }
 
-    if (type == "multiple") {
+    if (order.type == "multiple") {
       var orderEntity = await itemCollection.createOrderEntity(userId, id);
 
       if (!orderEntity) {
@@ -83,14 +83,14 @@ var createOrder = async (req, res) => {
     }
 
     return res.sendStatus(200);
-  } catch (err) {
-    if (err.name === "JsonWebTokenError") {
+  } catch (e) {
+    if (e.name === "JsonWebTokenError") {
       return res.sendStatus(401);
     }
 
     e.location = "createOrder";
 
-    throw e;
+    next(e);
   }
 };
 

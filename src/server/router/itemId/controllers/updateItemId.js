@@ -1,7 +1,6 @@
-import logger from "../../../logger.js";
 import updateItemIdInArray from "../services/updateItemIdInArray.js";
 
-var updateItemId = async (req, res) => {
+var updateItemId = async (req, res, next) => {
   var { userId, orderId, itemId, index } = req.body;
 
   var itemCollection = req.app.locals.itemCollectionServices();
@@ -18,9 +17,8 @@ var updateItemId = async (req, res) => {
     );
 
     return successfullUpdate ? res.sendStatus(200) : res.sendStatus(304);
-  } catch (err) {
-    logger.error({ place: "change item id", userId, err });
-    return res.status(500);
+  } catch (e) {
+    next(e);
   }
 };
 

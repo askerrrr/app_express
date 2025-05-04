@@ -9,8 +9,8 @@ var createUserDir = async (path) => {
     var result = await mkdir(userDir, { recursive: true });
 
     return result || result == undefined;
-  } catch (err) {
-    throw err;
+  } catch (e) {
+    throw e;
   }
 };
 

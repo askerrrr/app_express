@@ -1,7 +1,7 @@
 import { Readable } from "node:stream";
 
-var getOrderFileStream = async (url) => {
-  var response = await fetch(url);
+var getOrderFileStream = async (telegramApiFileUrl) => {
+  var response = await fetch(telegramApiFileUrl);
 
   if (!response.ok) {
     throw new Error("NoReadableStream");

@@ -1,9 +1,9 @@
-import logger from "../../../logger.js";
 import sendOrderStatus from "../../itemStatus/services/sendOrderStatus.js";
 
-var updateOrderStatus = async (req, res) => {
+var updateOrderStatus = async (req, res, next) => {
   var { userId, orderId, orderStatus } = req.body;
-  var { updateOrderStatusFromDB } = req.app.locals.userCollectionServices();
+
+  var userCollection = req.app.locals.userCollectionServices();
 
   try {
     var successfullResponse = await sendOrderStatus(
@@ -12,7 +12,7 @@ var updateOrderStatus = async (req, res) => {
       orderStatus
     );
 
-    var succesfullUpdate = await updateOrderStatusFromDB(
+    var succesfullUpdate = await userCollection.updateOrderStatus(
       userId,
       orderId,
       orderStatus
@@ -21,9 +21,8 @@ var updateOrderStatus = async (req, res) => {
     return successfullResponse && succesfullUpdate
       ? res.sendStatus(200)
       : res.sendStatus(304);
-  } catch (err) {
-    logger.error({ place: "change order status", userId, err });
-    return res.status(500);
+  } catch (e) {
+    next(e);
   }
 };
 

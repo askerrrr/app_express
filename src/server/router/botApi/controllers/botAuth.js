@@ -1,7 +1,7 @@
 import JWT from "jsonwebtoken";
 import env from "../../../env_var.js";
 
-var botAuth = async (req, res) => {
+var botAuth = async (req, res, next) => {
   try {
     var authHeader = req.headers?.authorization;
 
@@ -29,8 +29,8 @@ var botAuth = async (req, res) => {
         maxAge: 60 * 60 * 1000,
       })
       .json({ userToken });
-  } catch (err) {
-    console.log(err);
+  } catch (e) {
+    next(e);
   }
 };
 

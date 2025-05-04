@@ -1,8 +1,7 @@
-import logger from "../../../logger.js";
 import deleteOrderFile from "../services/deleteOrderFile.js";
 import sendDeleteOrderRequest from "../services/sendDeleteOrderRequest.js";
 
-var deleteOrder = async (req, res) => {
+var deleteOrder = async (req, res, next) => {
   var { userId, orderId } = req.params;
 
   var { deleteOrderFromItemCollection } =
@@ -34,9 +33,8 @@ var deleteOrder = async (req, res) => {
       orderIsDeletedFromItemCollection
       ? res.sendStatus(200)
       : res.sendStatus(304);
-  } catch (err) {
-    logger.error({ place: "delete order", userId, err });
-    return res.status(500);
+  } catch (e) {
+    next(e);
   }
 };
 

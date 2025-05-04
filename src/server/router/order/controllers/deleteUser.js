@@ -1,8 +1,7 @@
-import logger from "../../../logger.js";
 import deleteUserFolder from "../services/deleteUserFolder.js";
 import sendDeleteUserRequest from "../services/sendDeleteUserRequest.js";
 
-var deleteUser = async (req, res) => {
+var deleteUser = async (req, res, next) => {
   var { userId } = req.params;
 
   var { deleteUserFromItemCollection } =
@@ -28,9 +27,8 @@ var deleteUser = async (req, res) => {
       userIsDeletedFromItemCollection
       ? res.sendStatus(200)
       : res.sendStatus(304);
-  } catch (err) {
-    logger.error({ place: "delete user", userId, err });
-    return res.status(500);
+  } catch (e) {
+    next(e);
   }
 };
 

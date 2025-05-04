@@ -1,6 +1,4 @@
-import logger from "../../../logger.js";
-
-var downloadOrderFile = async (req, res) => {
+var downloadOrderFile = async (req, res, next) => {
   var { userId, orderId } = req.params;
 
   var { getOrderFilePath } = req.app.locals.userCollectionServices();
@@ -9,9 +7,8 @@ var downloadOrderFile = async (req, res) => {
     var filePath = await getOrderFilePath(userId, orderId);
 
     return res.download(filePath);
-  } catch (err) {
-    logger.error({ place: "download order file", userId, err });
-    return res.sendStatus(500);
+  } catch (e) {
+    next(e);
   }
 };
 

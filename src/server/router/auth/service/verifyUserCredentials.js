@@ -24,9 +24,7 @@ var verifyUserCredentials = async (userLogin, userPasswd, collection) => {
     // var validPasswd = await argon2.verify(passwd, userPasswd);
 
     // return validPasswd;
-  } catch (err) {
-    console.log(err);
-  }
+  } catch (err) {}
 };
 
 export default verifyUserCredentials;

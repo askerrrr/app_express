@@ -1,9 +1,9 @@
-import logger from "../../../logger.js";
 import { fileURLToPath } from "node:url";
 import { dirname, join } from "node:path";
+
 var __dirname = dirname(fileURLToPath(import.meta.url));
 
-var getIndexHTML = async (req, res) => {
+var getIndexHTML = async (req, res, next) => {
   var { getAll } = req.app.locals.userCollectionServices();
 
   try {
@@ -16,9 +16,8 @@ var getIndexHTML = async (req, res) => {
       : res.sendFile(
           join(__dirname, "../../../../public/html/adminPath/root/noUsers.html")
         );
-  } catch (err) {
-    logger.error({ place: "getting root file", err });
-    res.status(500);
+  } catch (e) {
+    next(e);
   }
 };
 

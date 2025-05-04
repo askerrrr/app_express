@@ -7,9 +7,9 @@ import { fileURLToPath } from "node:url";
 import cookieParser from "cookie-parser";
 import verifyToken from "./middleware/verifyToken.js";
 import { checkState } from "./middleware/mongoose/index.js";
+import adminCollection from "./database/admin.collection/admin.collection.js";
 import userCollectionServices from "./database/user.collection/userSollectionServices.js";
 import itemCollectionServices from "./database/item.collection/itemCollectionServices.js";
-import adminCollection from "./database/admin.collection/admin.collection.js";
 
 var app = express();
 
