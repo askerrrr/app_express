@@ -1,9 +1,15 @@
+import { DatabaseError } from "../../../customError/index.js";
+
 var createItemCollection = async (collection, { userId }) => {
-  var itemCollection = await collection.insertOne({ userId, orders: [] });
+  try {
+    var itemCollection = await collection.insertOne({ userId, orders: [] });
 
-  var result = await itemCollection.save();
+    var result = await itemCollection.save();
 
-  return result === itemCollection;
+    return result === itemCollection;
+  } catch (e) {
+    throw new DatabaseError("createItemCollection", e, userId);
+  }
 };
 
 export default createItemCollection;

@@ -10,6 +10,8 @@ var writeFile = async (path, readableStream) => {
     await pipeline(readableStream, writableStream).then(() =>
       console.log("File is written")
     );
+  } catch (e) {
+    throw e;
   } finally {
     await fileHandle?.close();
   }

@@ -4,18 +4,19 @@ import getOrderDetailsForBot from "../services/getOrderDetailsForBot.js";
 var getOrderDetails = async (req, res, next) => {
   var authHeader = req.headers?.authorization;
 
+  if (!authHeader) {
+    return res.sendStatus(401);
+  }
+
+  var validAuthHeader = await validateAuthHeader(authHeader);
+
+  if (!validAuthHeader) {
+    return res.sendStatus(401);
+  }
+
   try {
-    if (!authHeader) {
-      return res.sendStatus(401);
-    }
-
-    var validAuthHeader = await validateAuthHeader(authHeader);
-
-    if (!validAuthHeader) {
-      return res.sendStatus(401);
-    }
-
     var { userId } = req.params;
+
     var userCollection = req.app.locals.userCollectionServices();
 
     var user = await userCollection.getUserById(userId);
@@ -35,11 +36,13 @@ var getOrderDetails = async (req, res, next) => {
       (order) => order.orderStatus.value === "order-is-completed"
     );
 
-    return orders.length
-      ? res.status(200).json({ activeOrders, completedOrders })
-      : res.sendStatus(404);
+    if (orders.length) {
+      return res.status(200).json({ activeOrders, completedOrders });
+    }
+
+    return res.sendStatus(404);
   } catch (e) {
-    e.location = "getOrderDetails";
+    e.originFunction = "getOrderDetails";
 
     next(e);
   }

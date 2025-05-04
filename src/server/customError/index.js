@@ -33,7 +33,7 @@ class DatabaseError extends Error {
     this.orderId = orderId ?? "";
     this.message = message;
     this.location = location;
-    this.cause = cause;
+    this.cause = cause || "";
   }
 }
 
@@ -48,4 +48,31 @@ class DatabaseConnectionError extends Error {
   }
 }
 
-export { NetworkError, BotServerError, DatabaseError, DatabaseConnectionError };
+class ReadableStreamError extends Error {
+  constructor({ status, statusText }, url, message) {
+    super(message);
+
+    this.url = url;
+    this.code = status;
+    this.statusText = statusText;
+    this.name = "ReadableStreamError";
+  }
+}
+
+export {
+  NetworkError,
+  BotServerError,
+  DatabaseError,
+  DatabaseConnectionError,
+  ReadableStreamError,
+};
+
+var customErrors = {
+  NetworkError,
+  BotServerError,
+  DatabaseError,
+  DatabaseConnectionError,
+  ReadableStreamError,
+};
+
+export default customErrors;

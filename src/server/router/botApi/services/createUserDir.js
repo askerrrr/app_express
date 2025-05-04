@@ -1,9 +1,9 @@
 import { mkdir } from "node:fs/promises";
 
-var getUserPath = (path) => path.split("/").slice(0, -1).join("/");
+var getUserFolderPath = (path) => path.split("/").slice(0, -1).join("/");
 
 var createUserDir = async (path) => {
-  var userDir = getUserPath(path);
+  var userDir = getUserFolderPath(path);
 
   try {
     var result = await mkdir(userDir, { recursive: true });

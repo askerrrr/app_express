@@ -1,9 +1,9 @@
 var getOrderType = async (collection, userId, orderId) => {
-  var { orders } = await collection.findOne({ userId }).exec();
+  var user = await collection.findOne({ userId }).exec();
 
-  var { type } = orders.find((order) => order.id == orderId);
+  var order = user?.orders?.find((order) => order.id == orderId);
 
-  return type;
+  return order?.type;
 };
 
 export default getOrderType;

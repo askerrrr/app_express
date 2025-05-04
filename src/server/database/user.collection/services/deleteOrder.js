@@ -1,7 +1,14 @@
+import checkOrderExists from "./checkOrderExists.js";
 import { DatabaseError } from "../../../customError/index.js";
 
 var deleteOrder = async (collection, userId, orderId) => {
   try {
+    var order = await checkOrderExists(collection, userId, orderId);
+
+    if (!order) {
+      return true;
+    }
+
     var result = await collection.updateOne(
       { userId, "orders.id": orderId },
       {

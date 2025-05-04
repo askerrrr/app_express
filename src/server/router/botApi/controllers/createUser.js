@@ -1,50 +1,40 @@
 import validateAuthHeader from "../services/validateAuthHeader.js";
 
 var createUser = async (req, res, next) => {
+  var itemCollection = req.app.locals.itemCollectionServices();
+  var userCollection = req.app.locals.userCollectionServices();
+
   var authHeader = req.headers?.authorization;
+
+  if (!authHeader) {
+    return res.sendStatus(401);
+  }
+
+  var validAuthHeader = await validateAuthHeader(authHeader);
+
+  if (!validAuthHeader) {
+    return res.sendStatus(401);
+  }
 
   var userData = req.body;
 
   try {
-    if (!authHeader) {
-      return res.sendStatus(401);
-    }
-
-    var validAuthHeader = await validateAuthHeader(authHeader);
-
-    if (!validAuthHeader) {
-      return res.sendStatus(401);
-    }
-
-    var itemCollection = req.app.locals.itemCollectionServices();
-
-    var userCollection = req.app.locals.userCollectionServices();
-
     var user = await userCollection.getUserById(userData.userId);
 
-    if (!user) {
-      var userIsCreated = await userCollection.createUser(userData);
-
-      var collectionIsCreated = await itemCollection.createItemCollection(
-        userData
-      );
-
-      if (!userIsCreated || !collectionIsCreated) {
-        await userCollection.deleteUser(userData.userId);
-        await itemCollection.deleteUser(userData.userId);
-        return res.sendStatus(304);
-      }
-
-      return res.sendStatus(200);
+    if (user) {
+      return res.sendStatus(409);
     }
 
-    return res.sendStatus(409);
+    await userCollection.createUser(userData);
+
+    await itemCollection.createItemCollection(userData);
+
+    return res.sendStatus(200);
   } catch (e) {
-    if (e.name === "JsonWebTokenError") {
-      return res.sendStatus(401);
-    }
+    await userCollection.deleteUser(userData.userId);
+    await itemCollection.deleteUser(userData.userId);
 
-    e.location = "createUser";
+    e.originFunction = "createUser";
 
     next(e);
   }

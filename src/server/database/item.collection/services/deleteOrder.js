@@ -1,20 +1,32 @@
+import { DatabaseError } from "../../../customError/index.js";
+import checkOrderExists from "../../user.collection/services/checkOrderExists.js";
 import userCollectionServices from "../../user.collection/userSollectionServices.js";
 
 var deleteOrder = async (collection, userId, orderId) => {
-  var { getOrderType } = userCollectionServices();
+  try {
+    var order = await checkOrderExists(collection, userId, orderId);
 
-  var orderType = await getOrderType(userId, orderId);
+    if (!order) {
+      return true;
+    }
 
-  if (orderType == "multiple") {
-    result = await collection.updateOne(
-      { userId, "orders.id": orderId },
-      { $pull: { orders: { id: orderId } } }
-    );
+    var { getOrderType } = userCollectionServices();
 
-    return result.acknowledged;
+    var orderType = await getOrderType(userId, orderId);
+
+    if (orderType == "multiple") {
+      var result = await collection.updateOne(
+        { userId, "orders.id": orderId },
+        { $pull: { orders: { id: orderId } } }
+      );
+
+      return result.acknowledged;
+    }
+
+    return true;
+  } catch (e) {
+    throw new DatabaseError("deleteOrder", e, userId, orderId);
   }
-
-  return true;
 };
 
 export default deleteOrder;

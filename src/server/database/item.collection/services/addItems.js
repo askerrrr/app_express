@@ -1,3 +1,5 @@
+import { DatabaseError } from "../../../customError/index.js";
+
 var createItem = ({ url, price, qty, size }) => {
   var items = [];
 
@@ -19,21 +21,25 @@ var createItem = ({ url, price, qty, size }) => {
 };
 
 var addItems = async (collection, userId, orderId, xlsxData) => {
-  var items = createItem(xlsxData);
+  try {
+    var items = createItem(xlsxData);
 
-  var totalSum = xlsxData.totalSum[0];
+    var totalSum = xlsxData.totalSum[0];
 
-  var result = await collection.updateOne(
-    { userId, "orders.id": orderId },
-    {
-      $set: {
-        "orders.$.totalSum": totalSum,
-        "orders.$.items": items,
-      },
-    }
-  );
+    var result = await collection.updateOne(
+      { userId, "orders.id": orderId },
+      {
+        $set: {
+          "orders.$.totalSum": totalSum,
+          "orders.$.items": items,
+        },
+      }
+    );
 
-  return result.acknowledged;
+    return result.acknowledged;
+  } catch (e) {
+    throw new DatabaseError("addItems", e, userId, orderId);
+  }
 };
 
 export default addItems;
