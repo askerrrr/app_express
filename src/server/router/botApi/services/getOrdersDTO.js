@@ -1,4 +1,4 @@
-var getOrderDetailsForBot = async (orders) => {
+var getOrdersDTO = async (orders) => {
   var data = [];
 
   for (var i = 0; i < orders.length; i++) {
@@ -17,4 +17,4 @@ var getOrderDetailsForBot = async (orders) => {
   return data;
 };
 
-export default getOrderDetailsForBot;
+export default getOrdersDTO;
