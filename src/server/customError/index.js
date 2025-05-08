@@ -22,6 +22,18 @@ class BotOrderCreateError extends Error {
   }
 }
 
+class BotUserCreateError extends Error {
+  constructor(message, err, userId, orderId) {
+    super(message);
+
+    this.userId = userId;
+    this.orderId = orderId ?? "";
+    this.message = message;
+    this.cause = err?.cause ?? "";
+    this.name = this.constructor.name;
+  }
+}
+
 class BotServerError extends Error {
   constructor(message, cause, userId, orderId) {
     super(message);
@@ -72,6 +84,7 @@ class ReadableStreamError extends Error {
 export {
   BotServerError,
   DatabaseError,
+  BotUserCreateError,
   BotOrderCreateError,
   BotOrderDetailsError,
   DatabaseConnectionError,

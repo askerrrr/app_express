@@ -1,3 +1,4 @@
+import { BotUserCreateError } from "../../../customError/index.js";
 import validateAuthHeader from "../services/validateAuthHeader.js";
 
 var createUser = async (req, res, next) => {
@@ -34,9 +35,7 @@ var createUser = async (req, res, next) => {
     await userCollection.deleteUser(userData.userId);
     await itemCollection.deleteUser(userData.userId);
 
-    e.originFunction = "createUser";
-
-    next(e);
+    next(new BotUserCreateError(e.message, e, userData.userId));
   }
 };
 
