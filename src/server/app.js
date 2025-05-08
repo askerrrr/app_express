@@ -48,7 +48,6 @@ import { userPath } from "./router/userPath/index.js";
 import errorHandler from "./middleware/errorHandler/index.js";
 
 app.use(compression());
-app.disable("x-powered-by");
 
 app.use(
   helmet.contentSecurityPolicy({ directives: { "default-src": ["'self'"] } })
