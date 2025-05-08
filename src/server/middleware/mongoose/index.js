@@ -2,14 +2,8 @@ import mongoose from "mongoose";
 import env from "../../env_var.js";
 import { DatabaseConnectionError } from "../../customError/index.js";
 
-var mongooseConnection = async () => {
-  var userDB = mongoose.connect(
-    env.mongo_uri_for_connect,
-    env.mongoose_options
-  );
-
-  userDB.then(() => console.info("mongoose is connected"));
-};
+var mongooseConnection = async () =>
+  mongoose.connect(env.mongo_uri_for_connect, env.mongoose_options);
 
 mongoose.Promise = Promise;
 
@@ -31,8 +25,6 @@ var checkState = (req, res, next) => {
   } catch (e) {
     if (e instanceof DatabaseConnectionError) {
       next(e);
-    } else {
-      next(new DatabaseConnectionError(e));
     }
 
     next(new DatabaseConnectionError(e));
