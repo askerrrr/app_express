@@ -2,6 +2,7 @@ import downloadOrderFile from "../services/downloadOrderFile.js";
 import validateAuthHeader from "../services/validateAuthHeader.js";
 import getDataFromXLSX from "../../xlsx/services/getDataFromXLSX.js";
 import deleteOrderFile from "../../order/services/deleteOrderFile.js";
+import { BotOrderCreateError } from "../../../customError/index.js";
 
 var createOrder = async (req, res, next) => {
   var itemCollection = req.app.locals.itemCollectionServices();
@@ -52,9 +53,7 @@ var createOrder = async (req, res, next) => {
     await userCollection.deleteOrder(userId, id);
     await deleteOrderFile(order.file.path);
 
-    e.originFunction = "createOrder";
-
-    next(e);
+    next(new BotOrderCreateError(e.message, e, userId, id));
   }
 };
 
