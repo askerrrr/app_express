@@ -27,17 +27,18 @@ var getOrderDetails = async (req, res, next) => {
     }
 
     var { orders } = user;
-    var orderDetailsForBot = await getOrderDetailsForBot(orders);
-
-    var activeOrders = orderDetailsForBot.filter(
-      (order) => order.orderStatus.value !== "order-is-completed"
-    );
-
-    var completedOrders = orderDetailsForBot.filter(
-      (order) => order.orderStatus.value === "order-is-completed"
-    );
 
     if (orders.length) {
+      var orderDetailsForBot = await getOrderDetailsForBot(orders);
+
+      var activeOrders = orderDetailsForBot.filter(
+        (order) => order.orderStatus.value !== "order-is-completed"
+      );
+
+      var completedOrders = orderDetailsForBot.filter(
+        (order) => order.orderStatus.value === "order-is-completed"
+      );
+
       return res.status(200).json({ activeOrders, completedOrders });
     }
 
