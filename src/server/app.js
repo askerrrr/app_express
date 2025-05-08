@@ -47,11 +47,11 @@ import { purchasedStatus } from "./router/itemStatus/purchasedStatus.js";
 import { userPath } from "./router/userPath/index.js";
 import errorHandler from "./middleware/errorHandler/index.js";
 
-app.use(compression());
-
 app.use(
   helmet.contentSecurityPolicy({ directives: { "default-src": ["'self'"] } })
 );
+
+app.use(compression());
 
 app.use(checkState);
 app.use(express.urlencoded({ extended: true }));
