@@ -1,4 +1,5 @@
 import validateAuthHeader from "../services/validateAuthHeader.js";
+import { BotOrderDetailsError } from "../../../customError/index.js";
 import getOrderDetailsForBot from "../services/getOrderDetailsForBot.js";
 
 var getOrderDetails = async (req, res, next) => {
@@ -13,10 +14,9 @@ var getOrderDetails = async (req, res, next) => {
   if (!validAuthHeader) {
     return res.sendStatus(401);
   }
+  var { userId } = req.params;
 
   try {
-    var { userId } = req.params;
-
     var userCollection = req.app.locals.userCollectionServices();
 
     var user = await userCollection.getUserById(userId);
@@ -42,9 +42,7 @@ var getOrderDetails = async (req, res, next) => {
 
     return res.sendStatus(404);
   } catch (e) {
-    e.originFunction = "getOrderDetails";
-
-    next(e);
+    next(new BotOrderDetailsError(e.message, e, userId));
   }
 };
 
