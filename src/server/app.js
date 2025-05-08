@@ -46,6 +46,7 @@ import { purchasedStatus } from "./router/itemStatus/purchasedStatus.js";
 
 import { userPath } from "./router/userPath/index.js";
 import errorHandler from "./middleware/errorHandler/index.js";
+import notFoundMiddleware from "./middleware/notFoundMiddleware/notFoundMiddleware.js";
 
 app.use(
   helmet.contentSecurityPolicy({ directives: { "default-src": ["'self'"] } })
@@ -78,5 +79,7 @@ app.use("/status", orderStatus);
 
 app.use("/deliverystatus", deliveryStatus);
 app.use("/purchasedstatus", purchasedStatus);
+
+app.all("*", notFoundMiddleware);
 
 app.use(errorHandler);
