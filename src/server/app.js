@@ -2,6 +2,7 @@ import helmet from "helmet";
 import express from "express";
 import env from "./env_var.js";
 import logger from "./logger.js";
+import compression from "compression";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 import cookieParser from "cookie-parser";
@@ -46,6 +47,7 @@ import { purchasedStatus } from "./router/itemStatus/purchasedStatus.js";
 import { userPath } from "./router/userPath/index.js";
 import errorHandler from "./middleware/errorHandler/index.js";
 
+app.use(compression());
 app.disable("x-powered-by");
 
 app.use(
