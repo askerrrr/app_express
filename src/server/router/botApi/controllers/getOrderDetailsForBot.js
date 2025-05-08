@@ -1,6 +1,7 @@
 import getOrdersDTO from "../services/getOrdersDTO.js";
 import validateAuthHeader from "../services/validateAuthHeader.js";
 import { BotOrderDetailsError } from "../../../customError/index.js";
+import getActiveAndCompletedOrders from "../services/getActiveAndCompletedOrders.js";
 
 var getOrderDetails = async (req, res, next) => {
   var authHeader = req.headers?.authorization;
@@ -31,15 +32,9 @@ var getOrderDetails = async (req, res, next) => {
     if (orders.length) {
       var ordersDTO = await getOrdersDTO(orders);
 
-      var activeOrders = orderDetailsForBot.filter(
-        (order) => order.orderStatus.value !== "order-is-completed"
-      );
+      var activeAndCompletedOrders = getActiveAndCompletedOrders(ordersDTO);
 
-      var completedOrders = orderDetailsForBot.filter(
-        (order) => order.orderStatus.value === "order-is-completed"
-      );
-
-      return res.status(200).json({ activeOrders, completedOrders });
+      return res.status(200).json(activeAndCompletedOrders);
     }
 
     return res.sendStatus(404);
