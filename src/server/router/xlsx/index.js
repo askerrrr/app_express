@@ -4,7 +4,7 @@ import getSheetHTML from "./controllers/getSheetHTML.js";
 import getSheetData from "./controllers/getSheetData.js";
 import checkFileExist from "./controllers/checkFileExist.js";
 
-var router = Router();
+var router = Router({ caseSensitive: true, strict: true });
 
 router.get("/:userid/:orderid", getSheetHTML);
 
