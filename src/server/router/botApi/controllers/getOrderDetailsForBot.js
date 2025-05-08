@@ -32,7 +32,9 @@ var getOrderDetails = async (req, res, next) => {
     if (orders.length) {
       var ordersDTO = await getOrdersDTO(orders);
 
-      var activeAndCompletedOrders = getActiveAndCompletedOrders(ordersDTO);
+      var activeAndCompletedOrders = await getActiveAndCompletedOrders(
+        ordersDTO
+      );
 
       return res.status(200).json(activeAndCompletedOrders);
     }
