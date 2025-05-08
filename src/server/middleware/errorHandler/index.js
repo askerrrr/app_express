@@ -8,7 +8,7 @@ import {
 
 var errorHandler = async (e, req, res, next) => {
   logger.error({ error: e });
-
+  console.log("e: ", e);
   if (
     e instanceof BotServerError ||
     e instanceof BotUserCreateError ||

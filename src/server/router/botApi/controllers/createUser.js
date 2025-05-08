@@ -14,7 +14,7 @@ var createUser = async (req, res, next) => {
   var validAuthHeader = await validateAuthHeader(authHeader);
 
   if (!validAuthHeader) {
-    return res.sendStatus(401);
+    return res.sendStatus(403);
   }
 
   var userData = req.body;
