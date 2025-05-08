@@ -31,9 +31,11 @@ var checkState = (req, res, next) => {
   } catch (e) {
     if (e instanceof DatabaseConnectionError) {
       next(e);
+    } else {
+      next(new DatabaseConnectionError(e));
     }
 
-    next(new DatabaseConnectionError(e.message));
+    next(new DatabaseConnectionError(e));
   }
 };
 

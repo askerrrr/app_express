@@ -18,7 +18,7 @@ var sendOrderStatus = async (userId, orderId, orderStatus) => {
     });
 
     if (!res.ok) {
-      throw new BotServerError("sendOrderStatus", null, userId, orderId);
+      throw new BotServerError(res.statusText, res.status, userId, orderId);
     }
 
     return true;
@@ -27,7 +27,7 @@ var sendOrderStatus = async (userId, orderId, orderStatus) => {
       throw e;
     }
 
-    throw new BotServerError("sendOrderStatus", e, userId, orderId);
+    throw new BotServerError(e.message, e.cause, userId, orderId);
   }
 };
 

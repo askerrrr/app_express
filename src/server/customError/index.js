@@ -2,7 +2,7 @@ class NetworkError extends Error {
   constructor(location, { message, cause }, userId, orderId) {
     super(message);
 
-    this.name = "NetworkError";
+    this.name = this.constructor.name;
     this.userId = userId;
     this.orderId = orderId;
     this.message = message;
@@ -12,15 +12,14 @@ class NetworkError extends Error {
 }
 
 class BotServerError extends Error {
-  constructor(location, { message, cause }, userId, orderId) {
+  constructor(message, cause, userId, orderId) {
     super(message);
 
-    this.name = "BotServerError";
     this.userId = userId;
-    this.orderId = orderId;
+    this.orderId = orderId ?? "";
     this.message = message;
-    this.location = location;
-    this.cause = cause;
+    this.cause = cause ?? "";
+    this.name = this.constructor.name;
   }
 }
 
@@ -28,34 +27,34 @@ class DatabaseError extends Error {
   constructor(location, { message, cause }, userId, orderId) {
     super(message);
 
-    this.name = "DatabaseError";
     this.userId = userId;
     this.orderId = orderId ?? "";
     this.message = message;
     this.location = location;
-    this.cause = cause || "";
+    this.cause = cause ?? "";
+    this.name = this.constructor.name;
   }
 }
 
 class DatabaseConnectionError extends Error {
-  constructor(message) {
+  constructor({ message, cause }) {
     super(message);
 
-    this.name = "DatabaseConnectionError";
-    this.message = message ?? "Database connection is not established";
     this.code = 500;
-    this.cause = cause;
+    this.cause = cause ?? "";
+    this.name = this.constructor.name;
+    this.message = message ?? "Database connection is not established";
   }
 }
 
 class ReadableStreamError extends Error {
-  constructor({ status, statusText }, url, message) {
+  constructor(message, code, url) {
     super(message);
 
     this.url = url;
-    this.code = status;
-    this.statusText = statusText;
-    this.name = "ReadableStreamError";
+    this.code = code;
+    this.message = message;
+    this.name = this.constructor.name;
   }
 }
 

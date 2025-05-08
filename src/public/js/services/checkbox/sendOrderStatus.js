@@ -9,8 +9,7 @@ var sendOrderStatus = async (userId, orderId, orderStatus) => {
   });
 
   if (!response.ok) {
-    alert("Ошибка при обновлении статуса. Попробуйте еще раз.");
-    return;
+    return alert("Ошибка при обновлении статуса. Попробуйте еще раз.");
   }
 
   return true;

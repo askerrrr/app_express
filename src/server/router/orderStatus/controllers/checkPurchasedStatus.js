@@ -10,6 +10,8 @@ var checkPurchasedStatus = async (req, res, next) => {
 
     return res.json({ isAllItemsIsPurchased });
   } catch (e) {
+    e.origin = checkPurchasedStatus.name;
+
     next(e);
   }
 };

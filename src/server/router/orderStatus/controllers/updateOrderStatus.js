@@ -22,6 +22,8 @@ var updateOrderStatus = async (req, res, next) => {
       ? res.sendStatus(200)
       : res.sendStatus(304);
   } catch (e) {
+    e.origin = updateOrderStatus.name;
+
     next(e);
   }
 };
