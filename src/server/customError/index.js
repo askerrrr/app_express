@@ -90,7 +90,17 @@ class UserNotFoundError extends Error {
   }
 }
 
+class OrderNotFoundError extends Error {
+  constructor(message) {
+    super(message);
+
+    this.code = 404;
+    this.message = "order not found";
+  }
+}
+
 export {
+  OrderNotFoundError,
   UserNotFoundError,
   BotServerError,
   DatabaseError,
