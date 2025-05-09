@@ -8,8 +8,6 @@ var getOrderList = async (req, res, next) => {
   try {
     var user = await userCollection.getUserById(userId);
 
-    if (!user) {
-    }
     var orderListDto = await getOrderListDto(user);
 
     return user ? res.json(orderListDto) : res.sendStatus(404);
