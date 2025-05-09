@@ -25,15 +25,11 @@ var errorHandler = async (e, req, res, next) => {
   } else if (e instanceof UserNotFoundError) {
     res.status(404);
 
-    return res.sendFile(
-      join(__dirname, "../../../public/html/userNotFound.html")
-    );
+    return res.redirect("/notfound/user");
   } else if (e instanceof OrderNotFoundError) {
     res.status(404);
 
-    return res.sendFile(
-      join(__dirname, "../../../public/html/orderNotFound.html")
-    );
+    return res.redirect("/notfound/order");
   }
 
   res.status(500);

@@ -44,6 +44,7 @@ import { orderStatus } from "./router/orderStatus/index.js";
 import { deliveryStatus } from "./router/itemStatus/deliveryStatus.js";
 import { purchasedStatus } from "./router/itemStatus/purchasedStatus.js";
 
+import { notFound } from "./router/notFound/index.js";
 import { userPath } from "./router/userPath/index.js";
 import errorHandler from "./middleware/errorHandler/index.js";
 import notFoundMiddleware from "./middleware/notFoundMiddleware/notFoundMiddleware.js";
@@ -79,6 +80,8 @@ app.use("/status", orderStatus);
 
 app.use("/deliverystatus", deliveryStatus);
 app.use("/purchasedstatus", purchasedStatus);
+
+app.use("/notfound", notFound);
 
 app.all("*", notFoundMiddleware);
 
