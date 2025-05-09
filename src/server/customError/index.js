@@ -81,7 +81,7 @@ class ReadableStreamError extends Error {
   }
 }
 
-class UserNotFound extends Error {
+class UserNotFoundError extends Error {
   constructor(message) {
     super(message);
 
@@ -91,7 +91,7 @@ class UserNotFound extends Error {
 }
 
 export {
-  UserNotFound,
+  UserNotFoundError,
   BotServerError,
   DatabaseError,
   BotUserCreateError,

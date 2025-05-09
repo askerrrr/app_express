@@ -3,7 +3,7 @@ import {
   BotUserCreateError,
   BotOrderCreateError,
   BotOrderDetailsError,
-  UserNotFound,
+  UserNotFoundError,
 } from "../../customError/index.js";
 import logger from "../../logger.js";
 import { fileURLToPath } from "node:url";
@@ -21,7 +21,7 @@ var errorHandler = async (e, req, res, next) => {
     e instanceof BotOrderDetailsError
   ) {
     return res.sendStatus(500);
-  } else if (e instanceof UserNotFound) {
+  } else if (e instanceof UserNotFoundError) {
     res.status(404);
 
     return res.sendFile(
