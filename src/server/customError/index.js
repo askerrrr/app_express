@@ -81,7 +81,17 @@ class ReadableStreamError extends Error {
   }
 }
 
+class UserNotFound extends Error {
+  constructor(message) {
+    super(message);
+
+    this.code = 404;
+    this.message = "user not found";
+  }
+}
+
 export {
+  UserNotFound,
   BotServerError,
   DatabaseError,
   BotUserCreateError,
