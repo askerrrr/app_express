@@ -3,6 +3,7 @@ import {
   BotUserCreateError,
   BotOrderCreateError,
   BotOrderDetailsError,
+  OrderNotFoundError,
   UserNotFoundError,
 } from "../../customError/index.js";
 import logger from "../../logger.js";
@@ -26,6 +27,12 @@ var errorHandler = async (e, req, res, next) => {
 
     return res.sendFile(
       join(__dirname, "../../../public/html/userNotFound.html")
+    );
+  } else if (e instanceof OrderNotFoundError) {
+    res.status(404);
+
+    return res.sendFile(
+      join(__dirname, "../../../public/html/orderNotFound.html")
     );
   }
 
