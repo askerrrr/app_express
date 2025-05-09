@@ -1,10 +1,14 @@
-import logger from "../../logger.js";
 import {
   BotServerError,
   BotUserCreateError,
   BotOrderCreateError,
   BotOrderDetailsError,
 } from "../../customError/index.js";
+import logger from "../../logger.js";
+import { fileURLToPath } from "node:url";
+import { dirname, join } from "node:path";
+
+var __dirname = dirname(fileURLToPath(import.meta.url));
 
 var errorHandler = async (e, req, res, next) => {
   logger.error({ error: e });
