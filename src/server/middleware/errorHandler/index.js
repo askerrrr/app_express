@@ -14,7 +14,9 @@ var __dirname = dirname(fileURLToPath(import.meta.url));
 
 var errorHandler = async (e, req, res, next) => {
   logger.error({ error: e });
+
   console.log("e: ", e);
+
   if (
     e instanceof BotServerError ||
     e instanceof BotUserCreateError ||
@@ -22,11 +24,15 @@ var errorHandler = async (e, req, res, next) => {
     e instanceof BotOrderDetailsError
   ) {
     return res.sendStatus(500);
-  } else if (e instanceof UserNotFoundError) {
+  }
+
+  if (e instanceof UserNotFoundError) {
     res.status(404);
 
     return res.redirect("/notfound/user");
-  } else if (e instanceof OrderNotFoundError) {
+  }
+
+  if (e instanceof OrderNotFoundError) {
     res.status(404);
 
     return res.redirect("/notfound/order");
