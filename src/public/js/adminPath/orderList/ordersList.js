@@ -2,9 +2,10 @@ import rowForListOfActiveOrders from "../../services/row/rowForListOfActiveOrder
 
 var getOrderList = async () => {
   var pathParts = window.location.pathname.split("/");
+
   var userId = pathParts.at(-1);
 
-  var url = "/orders/api/orderlist/" + userId;
+  var url = "/orders/api/" + userId;
 
   var response = await fetch(url);
 

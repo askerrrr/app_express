@@ -6,7 +6,7 @@ var createOrderLink = async (userId, orderId, role) => {
 
   form.append(btn);
 
-  var adminPath = "/orders/orders/order/" + userId + "/" + orderId;
+  var adminPath = "/orders/order/" + userId + "/" + orderId;
 
   var userPath = "/user/order/" + userId + "/" + orderId;
 

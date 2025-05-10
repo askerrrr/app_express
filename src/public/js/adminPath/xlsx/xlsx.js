@@ -21,10 +21,7 @@ var getXlsxDataInTable = async () => {
 
     await rowForXLSX(sheetData, userId, orderId);
   } catch (err) {
-    if (err.message === "Unexpected end of JSON input") {
-      alert("Не удалось прочитать файл\nОшибка: " + err.message);
-      window.location.href = "/orders/orders/order/" + orderId;
-    }
+    window.location.href = "/orders/order/" + userId + "/" + orderId;
   }
 };
 

@@ -10,11 +10,11 @@ import getHTMLFileForOrderList from "./controllers/getHTMLFileForOrderList.js";
 
 var router = Router({ caseSensitive: true, strict: true });
 
-router.get("/api/orderlist/:userId", getOrderList);
+router.get("/api/:userId", getOrderList);
+
+router.get("/order/:userId/:orderId", getOrderHTML);
 
 router.get("/api/order/:userId/:orderId", getOrderData);
-
-router.get("/orders/order/:userId/:orderId", getOrderHTML);
 
 router.get("/:userId", getHTMLFileForOrderList);
 
