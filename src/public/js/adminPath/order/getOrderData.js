@@ -7,7 +7,7 @@ var getOrderData = async () => {
   var userId = pathParts.at(-2);
   var orderId = pathParts.at(-1);
 
-  var url = "/orderinfo/api/order/" + userId + "/" + orderId;
+  var url = "/orders/api/order/" + userId + "/" + orderId;
 
   var response = await fetch(url);
 

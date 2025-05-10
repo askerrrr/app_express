@@ -74,7 +74,7 @@ app.use("/xlsx", xlsx);
 app.use("/image", image);
 app.use("/upload", upload);
 app.use("/itemid", itemId);
-app.use("/orderinfo", order);
+app.use("/orders", order);
 app.use("/download", download);
 app.use("/status", orderStatus);
 

@@ -10,7 +10,7 @@ var createBackToOrdersButton = async (userId, role) => {
   if (role == "user") {
     form.action = "/user/orderlist/" + userId;
   } else {
-    form.action = "/orderinfo/orders/" + userId;
+    form.action = "/orders/" + userId;
   }
 
   return form;

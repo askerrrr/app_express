@@ -24,7 +24,7 @@ var createDeleteOrderForm = async (userId, orderId) => {
       var table = document.getElementById("table");
       table.removeChild(tbody);
 
-      window.location.replace("/orderinfo/orders/" + userId);
+      window.location.replace("/orders/" + userId);
       return;
     } else {
       await showAlertByHttpStatus(responseStatus);
@@ -33,7 +33,7 @@ var createDeleteOrderForm = async (userId, orderId) => {
   });
 
   var form = document.createElement("form");
-  form.action = "/orderinfo/delete/" + userId + "/" + orderId;
+  form.action = "/orders/delete/" + userId + "/" + orderId;
   form.className = "form-for-delete";
   form.append(button);
 

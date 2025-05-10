@@ -16,7 +16,7 @@ router.get("/api/order/:userId/:orderId", getOrderData);
 
 router.get("/orders/order/:userId/:orderId", getOrderHTML);
 
-router.get("/orders/:userId", getHTMLFileForOrderList);
+router.get("/:userId", getHTMLFileForOrderList);
 
 router.get("/api/completed/:userId", getCompletedOrdersData);
 

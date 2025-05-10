@@ -1,6 +1,6 @@
 var deleteUser = async (userId) => {
   try {
-    var url = "/orderinfo/api/delete/" + userId;
+    var url = "/orders/api/delete/" + userId;
 
     var response = await fetch(url, {
       method: "DELETE",

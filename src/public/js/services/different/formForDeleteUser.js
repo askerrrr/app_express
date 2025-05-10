@@ -32,7 +32,7 @@ var createDeleteUserForm = async (userId) => {
 
   var form = document.createElement("form");
 
-  form.action = "/orderinfo/api/delete/" + userId;
+  form.action = "/orders/api/delete/" + userId;
   form.className = "form-for-delete";
   form.append(button);
 

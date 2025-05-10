@@ -23,7 +23,7 @@ var getXLSXData = async () => {
   } catch (err) {
     if (err.message === "Unexpected end of JSON input") {
       alert("Не удалось прочитать файл\nОшибка: " + err.message);
-      window.location.href = "/orderinfo/orders/order/" + orderId;
+      window.location.href = "/orders/orders/order/" + orderId;
     }
   }
 };

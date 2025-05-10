@@ -6,7 +6,7 @@ var createAllOrdersLink = async (userId) => {
 
   form.method = "GET";
   form.append(btn);
-  form.action = "/orderinfo/orders/" + userId;
+  form.action = "/orders/" + userId;
 
   var td = document.createElement("td");
   td.append(form);

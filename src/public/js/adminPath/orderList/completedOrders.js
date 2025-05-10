@@ -5,7 +5,7 @@ var getoCompletedOrders = async () => {
 
   var userId = pathParts.at(-1);
 
-  var url = "/orderinfo/api/completed/" + userId;
+  var url = "/orders/api/completed/" + userId;
 
   var response = await fetch(url);
 
