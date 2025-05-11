@@ -22,12 +22,10 @@ var adminAuthForm = async () => {
       return;
     }
 
-    var json = await response.json();
+    var { redirectUrl } = await response.json();
 
-    return json.redirect
-      ? (window.location.href = "/")
-      : (window.location.href = "/auth/admin");
+    window.location.href = redirectUrl;
   });
 };
 
-adminAuthForm().catch((err) => alert("error: ", err));
+adminAuthForm();

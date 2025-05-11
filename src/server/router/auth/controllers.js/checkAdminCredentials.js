@@ -25,7 +25,7 @@ var checkAdminCredentials = async (req, res, next) => {
         httpOnly: true,
         maxAge: 1000 * 60 * 60,
       })
-      .json({ redirect: true });
+      .json({ redirectUrl: "/" });
   } catch (e) {
     next(e);
   }
