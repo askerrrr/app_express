@@ -18,16 +18,15 @@ var __dirname = dirname(fileURLToPath(import.meta.url));
 
 (async () => {
   try {
-    app.listen(env.PORT, env.HOST, () =>
-      console.log(`The server is running on http://${env.HOST}:${env.PORT}`)
-    );
+    app.listen(env.PORT, env.HOST);
 
     app.locals.userCollectionServices = userCollectionServices;
 
     app.locals.itemCollectionServices = itemCollectionServices;
     app.locals.adminCollection = adminCollection;
   } catch (err) {
-    return logger.error({ place: "app starting", err });
+    logger.error({ place: "app starting", err });
+    return app.response.sendStatus(500);
   }
 })();
 
@@ -47,8 +46,8 @@ import { purchasedStatus } from "./router/itemStatus/purchasedStatus.js";
 import { notFound } from "./router/notFound/index.js";
 import { userPath } from "./router/userPath/index.js";
 import errorHandler from "./middleware/errorHandler/index.js";
+import errorPage from "./router/notFound/controllers/errorPath.js";
 import notFoundMiddleware from "./middleware/notFoundMiddleware/notFoundMiddleware.js";
-
 app.use(
   helmet.contentSecurityPolicy({ directives: { "default-src": ["'self'"] } })
 );
@@ -82,6 +81,8 @@ app.use("/deliverystatus", deliveryStatus);
 app.use("/purchasedstatus", purchasedStatus);
 
 app.use("/notfound", notFound);
+
+app.get("/error", errorPage);
 
 app.all("*", notFoundMiddleware);
 

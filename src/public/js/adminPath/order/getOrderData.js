@@ -11,21 +11,27 @@ var getOrderData = async () => {
 
   var response = await fetch(url);
 
-  if (!response.ok) {
-    var err = await response.text();
-    alert("error: ", err);
-    return;
-  }
+  var data = await response.json();
 
-  var order = await response.json();
+  try {
+    if (!response.ok) {
+      window.location.href = data.redirectUrl;
 
-  if (order.type == "single") {
-    return await rowForSingle(order);
-  } else if (order.type == "multiple") {
-    return await rowForMultiple(order);
-  } else {
+      return;
+    }
+
+    if (data.type == "single") {
+      return await rowForSingle(data);
+    }
+
+    if (data.type == "multiple") {
+      return await rowForMultiple(data);
+    }
+
     return;
+  } catch (e) {
+    window.location.href = data.redirectUrl;
   }
 };
 
-getOrderData().catch((err) => alert("error: ", err));
+getOrderData();

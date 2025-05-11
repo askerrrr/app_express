@@ -9,9 +9,19 @@ var getOrderList = async () => {
 
   var response = await fetch(url);
 
-  var orders = await response.json();
+  var data = await response.json();
 
-  await rowForListOfActiveOrders(orders);
+  try {
+    if (!response.ok) {
+      window.location.href = data.redirectUrl;
+
+      return;
+    }
+
+    await rowForListOfActiveOrders(data);
+  } catch (e) {
+    window.location.href = "/notfound/user"; //redirectUrl;
+  }
 };
 
 getOrderList();

@@ -7,15 +7,9 @@ import {
   UserNotFoundError,
 } from "../../customError/index.js";
 import logger from "../../logger.js";
-import { fileURLToPath } from "node:url";
-import { dirname, join } from "node:path";
-
-var __dirname = dirname(fileURLToPath(import.meta.url));
 
 var errorHandler = async (e, req, res, next) => {
-  logger.error({ error: e });
-
-  console.log("e: ", e);
+  console.log("e: ", e.message, req.path);
 
   if (
     e instanceof BotServerError ||
@@ -27,19 +21,14 @@ var errorHandler = async (e, req, res, next) => {
   }
 
   if (e instanceof UserNotFoundError) {
-    res.status(404);
-
-    return res.redirect("/notfound/user");
+    return res.status(404).json({ redirectUrl: "/notfound/user" });
   }
 
   if (e instanceof OrderNotFoundError) {
-    res.status(404);
-
-    return res.redirect("/notfound/order");
+    return res.status(404).json({ redirectUrl: "/notfound/order" });
   }
 
-  res.status(500);
-  return res.sendFile(join(__dirname, "../../../public/html/errorPage.html"));
+  return res.status(500).json({ redirectUrl: "/error" });
 };
 
 export default errorHandler;
