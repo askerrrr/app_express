@@ -13,10 +13,6 @@ var getUserById = async (collection, userId) => {
 
     return user;
   } catch (e) {
-    if (e instanceof UserNotFoundError) {
-      throw e;
-    }
-
     throw new DatabaseError("getUserById", e, userId);
   }
 };
