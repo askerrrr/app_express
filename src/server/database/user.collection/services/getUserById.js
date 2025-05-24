@@ -1,7 +1,4 @@
-import {
-  DatabaseError,
-  UserNotFoundError,
-} from "../../../customError/index.js";
+import { DatabaseError } from "../../../customError/index.js";
 
 var getUserById = async (collection, userId) => {
   try {
