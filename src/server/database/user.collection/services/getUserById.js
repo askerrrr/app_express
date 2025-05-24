@@ -8,7 +8,7 @@ var getUserById = async (collection, userId) => {
     var user = await collection.findOne({ userId }).exec();
 
     if (!user) {
-      throw new UserNotFoundError();
+      return;
     }
 
     return user;
